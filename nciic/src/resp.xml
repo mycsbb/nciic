@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="GBK"?>
+<RESPONSE>
+	<ROWS />
+	<RESULT>
+		<ROW>&lt;TABLE width="98%"&gt;&lt;TR&gt;&lt;TD&gt;&lt;TABLE
+			width="100%" cellpadding="2" cellspacing="1"
+			class="editTabTitle"&gt;&lt;TR&gt;&lt;TD align="center" height="25"
+			class="label"&gt;数据项&lt;/TD&gt;&lt;TD align="center" height="25"
+			class="label"&gt;输入信息&lt;/TD&gt;&lt;/TR&gt;&lt;TR&gt;&lt;TD
+			width="15%" height="25" class ="label"&gt;公民身份号码&lt;/TD&gt;&lt;TD
+			height="25" class
+			="editLabel"&gt;350524198803275596&lt;/TD&gt;&lt;/TR&gt;&lt;TR&gt;&lt;TD
+			width="15%" height="25" class ="label"&gt;姓名&lt;/TD&gt;&lt;TD
+			height="25" class
+			="editLabel"&gt;陈江&lt;/TD&gt;&lt;/TR&gt;&lt;TR&gt;&lt;TD width="15%"
+			height="25" class ="label"&gt;服务结果&lt;/TD&gt;&lt;TD colspan="99"
+			height="25" class
+			="editLabel"&gt;没有符合条件的记录，请到户籍所在地进行核实&lt;/TD&gt;&lt;/TR&gt;&lt;/TABLE&gt;&lt;/TD&gt;&lt;/TR&gt;&lt;INPUT
+			type='hidden' name='printFlag'/&gt;&lt;INPUT type='hidden'
+			checkResult=3/&gt;&lt;/TABLE&gt;</ROW>
+	</RESULT>
+</RESPONSE>

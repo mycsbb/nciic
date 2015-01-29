@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<ROWS recordsperpage="10">
+	<PREDICATE></PREDICATE>
+	<ROW>
+		<BA fwid="1191" tsfwbs=""></BA>
+		<CNS>
+			<CN>
+				<BM>JCXX_CZRK</BM>
+				<L> and </L>
+				<FN sv="">GMSFHM</FN>
+				<OPT>=</OPT>
+				<VAL>350524198803275596</VAL>
+				<FT>1</FT>
+			</CN>
+			<CN>
+				<BM>JCXX_CZRK</BM>
+				<L> and </L>
+				<FN sv="">XM</FN>
+				<OPT>=</OPT>
+				<VAL>陈江</VAL>
+				<FT>3</FT>
+			</CN>
+		</CNS>
+	</ROW>
+</ROWS>

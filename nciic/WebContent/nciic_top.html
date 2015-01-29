@@ -1,0 +1,353 @@
+<html>
+<head>
+<title>RootMenu</title>
+<meta http-equiv="Content-Type" content="text/html; charset=GBK">
+<style>
+<!--
+.tablestyle {background-image: url(link_bk.gif); font-family: "宋体"; font-size: 12px; color: #000000; text-decoration: none; clip:   rect(   ); font-weight: normal}
+.tdstyle {background-image: url(link_bk.gif);}
+.tdfocusstyle {background-image: url(link_bkA.gif); }
+.ntdstyle {font-family: "宋体"; font-size: 12px; color:#000000}
+.ntdfocusstyle {font-family: "宋体"; font-size: 12px; color:#000000}
+.ltdstyle {background-color:#E5ECF7; font-family: "宋体"; font-size: 12px;}
+.ltdfocusstyle {background-color:#0000FF; font-family: "宋体"; font-size: 12px;}
+A.nastyle:link {COLOR: #000000; TEXT-DECORATION: none;font-family: "宋体"; font-size: 12px;}
+A.nastyle:visited {COLOR: #000000; TEXT-DECORATION: none;font-family: "宋体"; font-size: 12px;color:#000000}
+A.nastyle:active {COLOR: #000000; TEXT-DECORATION: none; font-family: "宋体"; font-size: 12px;color:#000000}
+A.nastyle:hover {COLOR: #000000; TEXT-DECORATION: underline;font-family: "宋体"; font-size: 12px;color:#000000}
+
+A.nafocusstyle:link {COLOR: #000000; TEXT-DECORATION: none;font-family: "宋体"; font-size: 12px;color:#000000}
+A.nafocusstyle:visited {COLOR: #000000; TEXT-DECORATION: none;font-family: "宋体"; font-size: 12px;color:#000000}
+A.nafocusstyle:active {COLOR: #000000; TEXT-DECORATION: none; font-family: "宋体"; font-size: 12px;color:#000000}
+A.nafocusstyle:hover {COLOR: #000000; TEXT-DECORATION: underline;font-family: "宋体"; font-size: 12px;color:#000000}
+
+A.lastyle:link {COLOR: #000000; TEXT-DECORATION: none;font-family: "宋体"; font-size: 12px;}
+A.lastyle:visited {COLOR: #000000; TEXT-DECORATION: none;font-family: "宋体"; font-size: 12px;}
+A.lastyle:active {TEXT-DECORATION: none; font-family: "宋体"; font-size: 12px;}
+A.lastyle:hover {COLOR: #EE0000; TEXT-DECORATION: none;font-family: "宋体"; font-size: 12px; }
+
+A.lafocusstyle:link {COLOR: #FFFFFF; TEXT-DECORATION: none;font-family: "宋体"; font-size: 12px;}
+A.lafocusstyle:visited {COLOR: #FFFFFF; TEXT-DECORATION: none;font-family: "宋体"; font-size: 12px;}
+A.lafocusstyle:active {TEXT-DECORATION: none; font-family: "宋体"; font-size: 12px;}
+A.lafocusstyle:hover {COLOR: #FFFFFF; TEXT-DECORATION: none;font-family: "宋体"; font-size: 12px; }
+
+A.astyle:link {COLOR: #014A68; TEXT-DECORATION: none;font-family: "宋体"; font-size: 12px;}
+A.astyle:visited {COLOR: #014A68; TEXT-DECORATION: none;font-family: "宋体"; font-size: 12px;}
+A.astyle:active {COLOR: #FFFFFF;TEXT-DECORATION: none; font-family: "宋体"; font-size: 12px;}
+A.astyle:hover {COLOR: #014A68; TEXT-DECORATION: underline;font-family: "宋体"; font-size: 12px;}
+
+
+-->
+</style>
+
+</head>
+<body topmargin="0" leftmargin="0" marginwidth="0" marginheight="0" onload="setAllTaskTableTitle();">
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+	<tr>
+		<td>
+		<table id="taskTable" border="0" cellpadding="0" background="/nciic_self/images/blueTemplate/banner_bk.gif" cellspacing="0" align=center	width="100%">
+			<tr >
+				<td width="540"><img src="/nciic_self/images/blueTemplate/banner.gif" width="540" height="62"></td>
+                <td width="100%"></td>
+				<td width="63" onclick="doSwitchPage(1);" onDblClick="doClosePage(1);"><img width="63" src="/nciic_self/images/blueTemplate/an01.gif" onmouseover="doMouseover_work(this)" onmouseout="doMouseout_work(this)" height="62"></td>
+				<td width="63" onclick="doSwitchPage(2);" onDblClick="doClosePage(2);"><img width="63" src="/nciic_self/images/blueTemplate/an01.gif" onmouseover="doMouseover_work(this)" onmouseout="doMouseout_work(this)" height="62"></td>
+				<td width="63" onclick="doSwitchPage(3);" onDblClick="doClosePage(3);"><img width="63" src="/nciic_self/images/blueTemplate/an01.gif" onmouseover="doMouseover_work(this)" onmouseout="doMouseout_work(this)" height="62"></td>
+				<td width="63" onclick="doSwitchPage(4);" onDblClick="doClosePage(4);"><img width="63" src="/nciic_self/images/blueTemplate/an01.gif" onmouseover="doMouseover_work(this)" onmouseout="doMouseout_work(this)" height="62"></td>
+				<td width="63" onclick="FUNC_MENUTABLE_MENU_CLICK('0', 'mainpage', '', '')"><img width="63" src="/nciic_self/images/blueTemplate/shou01.gif" over="/nciic_self/images/blueTemplate/shou02.gif" out="/nciic_self/images/blueTemplate/shou01.gif" onmouseover="doMouseover(this)" onmouseout="doMouseout(this)" height="62"></td>
+				<td width="63" onclick="FUNC_MENUTABLE_MENU_CLICK('999', 'mainpage', 'logout.jsp', 'pagearea')"><img width="63" src="/nciic_self/images/blueTemplate/zx01.gif" over="/nciic_self/images/blueTemplate/zx02.gif" out="/nciic_self/images/blueTemplate/zx01.gif" onmouseover="doMouseover(this)" onmouseout="doMouseout(this)"  height="62"></td>
+			</tr>
+		</table>
+		</td>
+	</tr>
+</table>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+	<tr>
+		<td  width="165"  style="width:165px;" height='22'  background="/nciic_self/images/blueTemplate/toplink_bk.gif">
+		<div style="width:165px;"></div>
+		</td>
+		<td height='22'  background="/nciic_self/images/blueTemplate/toplink_bk.gif">
+		<div width="800"><table width="1024" border="0" cellpadding="0" cellspacing="0" height="22" class="tablestyle">
+<tr>
+<td width="75" class="tdstyle" id="TD_ID_HXFW" align="center" nowrap><image src="/nciic_self/images/blueTemplate/toplink_bk_1.gif"></image>&nbsp;<a id="A_ID_HXFW" class="astyle" href="javascript:FUNC_MENUTABLE_MENU_CLICK('HXFW', 'mainpage', '#', 'pagearea')">核心服务</a>
+</td>
+<td id="SEP_ID_CRM" ><img src="/nciic_self/images/blueTemplate/separator_line.gif" /></td>
+<td width="75" class="tdstyle" id="TD_ID_CRM" align="center" nowrap><image src="/nciic_self/images/blueTemplate/toplink_bk_1.gif"></image>&nbsp;<a id="A_ID_CRM" class="astyle" href="javascript:FUNC_MENUTABLE_MENU_CLICK('CRM', 'mainpage', '', '')">客户管理</a>
+</td>
+<td id="SEP_ID_JFXT" ><img src="/nciic_self/images/blueTemplate/separator_line.gif" /></td>
+<td width="75" class="tdstyle" id="TD_ID_JFXT" align="center" nowrap><image src="/nciic_self/images/blueTemplate/toplink_bk_1.gif"></image>&nbsp;<a id="A_ID_JFXT" class="astyle" href="javascript:FUNC_MENUTABLE_MENU_CLICK('JFXT', 'mainpage', '#', 'pagearea')">计费管理</a>
+</td>
+<td width="2048"></td></tr>
+</table>
+<script language="javascript">
+<!--
+var iFirst = 0;
+var iLast = -1;
+var ids = new Array(5);
+ids[0] = "TD_ID_HXFW";
+ids[1] = "SEP_ID_CRM";
+ids[2] = "TD_ID_CRM";
+ids[3] = "SEP_ID_JFXT";
+ids[4] = "TD_ID_JFXT";
+function next(){
+return;
+if (iLast>=ids.length-1) return;
+document.all.item(ids[++iLast]).style.display="";
+document.all.item(ids[++iLast]).style.display="";
+document.all.item(ids[iFirst++]).style.display="none";
+document.all.item(ids[iFirst++]).style.display="none";
+}
+function prior(){
+return;
+if (iFirst<=0) return;
+document.all.item(ids[iLast--]).style.display="none";
+document.all.item(ids[iLast--]).style.display="none";
+document.all.item(ids[--iFirst]).style.display="";
+document.all.item(ids[--iFirst]).style.display="";
+}
+function isRollShow(){
+return false;
+}
+var currentMenuName = "";
+function FUNC_MENUTABLE_MENU_CLICK(menuName, aimFrm, menuLocation, menuTarget){
+var tdelement,aelement;
+if (currentMenuName != ""){
+tdelement=document.all("TD_ID_"+currentMenuName);
+aelement=document.all("A_ID_"+currentMenuName);
+if (tdelement != null)
+tdelement.className = "tdstyle";
+if (aelement != null)
+aelement.className = "astyle";
+}
+currentMenuName = menuName;
+tdelement=document.all("TD_ID_"+currentMenuName);
+aelement=document.all("A_ID_"+currentMenuName);
+if (tdelement != null)
+tdelement.className = "tdfocusstyle";
+if (aelement != null)
+aelement.className = "afocusstyle";
+if (menuLocation != ""){
+menuLocation = "/nciic_self"+"/"+menuLocation;
+if (menuTarget == "")
+window.location.href=menuLocation;
+else{
+var targetobj = top.document.all(menuTarget);
+targetobj.src=menuLocation;
+}
+}
+if (aimFrm != ""){
+var aimobj = top.document.all(aimFrm);
+var aimsrc = aimobj.src;
+var index = aimsrc.indexOf("?", 0);
+if (index == -1)
+aimsrc = aimsrc + "?" + "parentName" + "=" + menuName;
+else{
+index = aimsrc.indexOf("parentName", index);
+if (index == -1)
+aimsrc = aimsrc + "&" + "parentName" + "=" + menuName;
+else{
+aimsrc = aimsrc.substring(0, index);
+aimsrc = aimsrc + "parentName" + "=" + menuName;
+}
+}
+aimobj.src=aimsrc;
+}
+}
+//-->
+</script>
+
+</div>
+		</td>
+	</tr>
+    <!--tr><td colspan=2 width="100%" height="8" background="/nciic_self/images/blueTemplate/page_modify_bk.gif"></td></tr-->
+</table>
+<div style="display:none"><iframe name="download" id="download"
+	src="#" marginwidth="1" marginheight="1" height="1" width="1"></iframe>
+</div>
+<script language="javascript">
+var isDoUnload=true;
+
+function setAllTaskTableTitle()
+{
+	for (var i=1;i<5;i++)
+        setTaskTableTitle(taskTable.rows[0].cells[i+1],"工作区");
+}
+
+
+function doMouseover(obj){
+  obj.src=obj.over;
+}
+function doMouseout(obj){
+  obj.src=obj.out;
+}
+function doMouseover_work(obj){
+  if(obj.src.indexOf("an01")>0){
+    obj.src="/nciic_self/images/blueTemplate/an01-2.gif";
+  }else{
+    obj.src="/nciic_self/images/blueTemplate/an02-2.gif";
+  }
+
+}
+function doMouseout_work(obj){
+  if(obj.src.indexOf("an01-2")>0){
+    obj.src="/nciic_self/images/blueTemplate/an01.gif";
+  }else{
+    obj.src="/nciic_self/images/blueTemplate/an02.gif";
+  }
+
+}
+
+function FUNC_MENUTABLE_MENU_CLICK(menuName, aimFrm, menuLocation, menuTarget)
+{
+	if (menuName=='ZAGL')
+	{
+			top.frames[2].ShowJcxx();
+	}
+	if (menuName=='999')
+	{
+		isDoUnload=false;
+		top.location.href="/nciic_self/logout.jsp" ;
+	}
+	else
+	{
+       var tds = document.all("TD_ID_"+menuName);
+
+          if(tds!=null){
+             var trs = tds.parentElement;
+              for(var i =0;i<trs.cells.length;i++){
+//                 trs.cells[i].style.background="url('')";
+                 trs.cells[i].style.background="url('')";
+
+              }
+
+			// tds.style.background = "url('/nciic_self/images/blueTemplate/toplink_bkA.gif')";
+              tds.style.backgroundColor  ="#AACCFF";
+          }
+
+		var aimobj = parent.frames[1] ;
+		aimobj.location.href ="/nciic_self/jsp/framework/blueTemplate/ChildMenu.jsp?parentName="+menuName ;
+		if(menuName =='0')
+		{
+			parent.frames[2].refreshPage(0);
+			doSwitchPage(0);
+		}
+	}
+}
+function MM_swapImage(name)
+{
+    var allimg = document.getElementsByTagName("img");
+      for(var i = 0;i<allimg.length;i++){
+       if(allimg[i].name!=name){
+          if(allimg[i].defaulti){
+            allimg[i].src = allimg[i].defaulti;
+          }
+       }
+       else if(allimg[i].alt)
+       {
+            allimg[i].src = allimg[i].alt;
+       }
+      }
+
+}
+
+
+function doClosePage(n)
+{
+	//setTaskTable(n-1);
+	parent.frames[2].doClosePage(n);
+}
+
+function doSwitchPage(n)
+{
+	window.event.cancelBubble = true;
+	var cell = event.srcElement;
+	while(cell.tagName != 'TD')
+		cell = cell.parentElement;
+	var desc = cell.title;
+	desc = desc ? desc : "";
+	parent.frames[2].doSwitchPage(n);
+	setTaskTable(n,desc);
+}
+
+function setTaskTableTitle(cell,desc)
+{
+	if(cell.titleDiv) cell.titleDiv.removeNode(true);
+	/*if(desc == "")
+	{
+		cell.title = "";
+		return;
+	}*/
+    if(desc == "")
+	{
+		desc = "工作区";
+
+	}
+	var titleDiv = document.createElement("DIV");
+	with(titleDiv.style)
+	{
+        position = "absolute";
+        background = "transparent";
+        if(desc.length <= 5)
+        	top = cell.clientHeight - 14;
+        else
+        	top = cell.clientHeight - 24;
+        left = cell.offsetLeft;
+        width = cell.clientWidth;
+        height = 24;
+        fontSize = '9pt';
+        color = '#eeee00';
+        border = "0px";
+        zIndex = 4;
+        textAlign = 'center';
+	}
+	cell.titleDiv = titleDiv;
+	cell.appendChild(titleDiv);
+	cell.titleDiv.innerText = desc.substr(0,10);
+	cell.title = desc;
+}
+
+function setTaskTable(n,mdesc)
+{
+	if(!mdesc) mdesc = "";
+	switch(n)
+	{
+		case 0:
+			taskTable.rows[0].cells[2].firstChild.src = "/nciic_self/images/blueTemplate/an01.gif";
+			taskTable.rows[0].cells[3].firstChild.src = "/nciic_self/images/blueTemplate/an01.gif";
+			taskTable.rows[0].cells[4].firstChild.src = "/nciic_self/images/blueTemplate/an01.gif";
+			taskTable.rows[0].cells[5].firstChild.src = "/nciic_self/images/blueTemplate/an01.gif";
+			break;
+		case 1:
+			taskTable.rows[0].cells[2].firstChild.src = "/nciic_self/images/blueTemplate/an02.gif";
+			setTaskTableTitle(taskTable.rows[0].cells[2],mdesc);
+			taskTable.rows[0].cells[3].firstChild.src = "/nciic_self/images/blueTemplate/an01.gif";
+			taskTable.rows[0].cells[4].firstChild.src = "/nciic_self/images/blueTemplate/an01.gif";
+			taskTable.rows[0].cells[5].firstChild.src = "/nciic_self/images/blueTemplate/an01.gif";
+			break;
+		case 2:
+			taskTable.rows[0].cells[2].firstChild.src = "/nciic_self/images/blueTemplate/an01.gif";
+			taskTable.rows[0].cells[3].firstChild.src = "/nciic_self/images/blueTemplate/an02.gif";
+			setTaskTableTitle(taskTable.rows[0].cells[3],mdesc);
+			taskTable.rows[0].cells[4].firstChild.src = "/nciic_self/images/blueTemplate/an01.gif";
+			taskTable.rows[0].cells[5].firstChild.src = "/nciic_self/images/blueTemplate/an01.gif";
+			break;
+		case 3:
+			taskTable.rows[0].cells[2].firstChild.src = "/nciic_self/images/blueTemplate/an01.gif";
+			taskTable.rows[0].cells[3].firstChild.src = "/nciic_self/images/blueTemplate/an01.gif";
+			taskTable.rows[0].cells[4].firstChild.src = "/nciic_self/images/blueTemplate/an02.gif";
+			setTaskTableTitle(taskTable.rows[0].cells[4],mdesc);
+			taskTable.rows[0].cells[5].firstChild.src = "/nciic_self/images/blueTemplate/an01.gif";
+			break;
+		case 4:
+			taskTable.rows[0].cells[2].firstChild.src = "/nciic_self/images/blueTemplate/an01.gif";
+			taskTable.rows[0].cells[3].firstChild.src = "/nciic_self/images/blueTemplate/an01.gif";
+			taskTable.rows[0].cells[4].firstChild.src = "/nciic_self/images/blueTemplate/an01.gif";
+			taskTable.rows[0].cells[5].firstChild.src = "/nciic_self/images/blueTemplate/an02.gif";
+			setTaskTableTitle(taskTable.rows[0].cells[5],mdesc);
+			break;
+		default:
+			break;
+	}
+}
+</script>
+</body>
+</html>

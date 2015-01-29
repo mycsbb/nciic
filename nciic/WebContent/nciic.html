@@ -1,0 +1,161 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+
+<html>
+<head>
+<title>系统登录</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<link href="/nciic_self/css/newMenu/style.css" rel="stylesheet" type="text/css">
+<object classid="clsid:707C7D52-85A8-4584-8954-573EFCE77488" id="JITDSignOcx" 
+width="0" codebase="./JITDSign.cab#version=2,0,24,19"></object>
+
+<script language="JavaScript" type="text/JavaScript">
+function login(){
+  document.getElementById("tempType").value = "0";
+  document.loginForm.submit();
+}
+function dologin(){
+  if(event.keyCode==13){ //'回车'按下则调用登录函数
+    try {
+      document.loginForm.Submit.focus();//登录
+    }
+    catch(e){}
+  }
+}
+function removeValue(){
+
+   usrObj.value="";
+   passObj.value="";
+}
+function enterToTab(){
+  if(event.keyCode==13){ //'回车'转化为'TAB'
+    event.keyCode=9;
+  }
+}
+
+function changeImage(){
+   document.getElementById("verifyCodeImage").src = "/nciic_self/checkCodeAction.do?method=displayImg&temp="+(new Date().getTime().toString(36));
+}
+//————————————————————————证书————————————————liubao——————————
+function doDataProcess(){
+    //alert("进入认证身份证书JS");
+    var Auth_Content = 'lsv9ro';
+	var DSign_Subject = document.getElementById("RootCADN").value;
+	if(Auth_Content==""){
+		alert("认证原文不能为空!");
+	}else{
+		//控制证书为一个时，不弹出证书选择框
+		JITDSignOcx.SetCertChooseType(1);
+		JITDSignOcx.SetCert("SC","","","",DSign_Subject,"");
+		if(JITDSignOcx.GetErrorCode()!=0){
+			alert("错误码："+JITDSignOcx.GetErrorCode()+"　错误信息："+JITDSignOcx.GetErrorMessage(JITDSignOcx.GetErrorCode()));
+			return false;
+		}else {
+			 var temp_DSign_Result = JITDSignOcx.DetachSignStr("",Auth_Content);
+			 if(JITDSignOcx.GetErrorCode()!=0){
+					alert("错误码："+JITDSignOcx.GetErrorCode()+"　错误信息："+JITDSignOcx.GetErrorMessage(JITDSignOcx.GetErrorCode()));
+					return false;
+			 }
+		//如果Get请求，需要放开下面注释部分
+		//	 while(temp_DSign_Result.indexOf('+')!=-1) {
+		//		 temp_DSign_Result=temp_DSign_Result.replace("+","%2B");
+		//	 }
+			document.getElementById("signed_data").value = temp_DSign_Result;
+		}
+	}
+	document.getElementById("original_jsp").value = Auth_Content;
+	document.getElementById("tempType").value = "1";
+	document.loginForm.submit();
+}
+//————————————————————————证书————————————————liubao——————————
+</script>
+
+<script for=window event=onload>
+  usrObj=document.loginForm.username;
+    passObj=document.loginForm.password;
+  if(usrObj!=null){
+    if(usrObj.value==null||usrObj.value==""){
+      usrObj.focus();
+    }
+    else{
+      if(passObj!=null){
+        passObj.focus();
+      }
+    }
+  }
+  var loginStyle = document.all("loginStyle");
+     for(var  i=0;i<loginStyle.length;i++){
+         if(loginStyle[i].value=="BlueTemplate") {
+           loginStyle[i].selected=true;
+           break;
+         }
+     }
+
+</script>
+</head>
+
+<body  leftmargin="0" topmargin="0" bgcolor="white">
+<form name="loginForm" action="login.do" method="post" target="_top">
+<input type="hidden" size="16" name="method" id="method" value="crmlogin">
+<TABLE>
+  <TBODY>
+  <TR height="10%">
+    <TD colSpan=2></TD></TR>
+  <TR>
+    <TD width="10%"></TD>
+    <TD align=middle>
+      <TABLE height=518 cellSpacing=0 cellPadding=0 width=820
+      background="/nciic_self/images/blueTemplate/index.gif" border=0>
+        <TBODY>
+        <TR>
+          <TD height=308></TD>
+          <TD></TD></TR>
+        <TR>
+          <TD width=285 height=39>　</TD>
+          <TD align=left>
+			<INPUT onkeydown=enterToTab() style="WIDTH: 177; height:23"
+             name=username value="
+"></TD></TR>
+        <TR>
+          <TD width=285 height=48>　</TD>
+          <TD align=left>
+			<INPUT onkeydown=dologin() style="WIDTH: 176; height:23"
+            type=password name=password></TD></TR>
+        <tr>
+            <td width="285" height=35></td>
+            <td align=left>
+				<input name="verifyCode" style="WIDTH: 98; height:23">
+            <a href="javaScript:changeImage()"><img id="verifyCodeImage" name="sfhc_im" border=0 align="center" src="/nciic_self/checkCodeAction.do?method=displayImg"></a></td>
+
+        </tr>
+
+        <TR style="display:none">
+          <TD width=298 height=0>　</TD>
+          <TD><SELECT style="WIDTH: 179; height:0" name=loginStyle> <OPTION
+              value=defaultTemplate >默认模版</OPTION> <OPTION
+              value=RedTemplate>红色模版</OPTION> <OPTION
+              value=BlueTemplate selected>蓝色模版</OPTION></SELECT> </TD></TR>
+        <TR>
+          <TD></TD>
+          <TD align=left><INPUT style="BORDER-RIGHT: 0px; BORDER-TOP: 0px; BACKGROUND-IMAGE: url(/nciic_self/images/blueTemplate/dl.gif); BORDER-LEFT: 0px; WIDTH: 66px; BORDER-BOTTOM: 0px; HEIGHT: 23px" onclick=login() type=button name=Submit>&nbsp;&nbsp;<INPUT style="BORDER-RIGHT: 0px; BORDER-TOP: 0px; BACKGROUND-IMAGE: url(/nciic_self/images/blueTemplate/cz.gif); BORDER-LEFT: 0px; WIDTH: 66px; BORDER-BOTTOM: 0px; HEIGHT: 23px" onclick=removeValue() type=button name=concle>&nbsp;&nbsp;<INPUT style="BORDER-RIGHT: 0px; BORDER-TOP: 0px; BACKGROUND-IMAGE: url(/nciic_self/images/blueTemplate/CA.gif); BORDER-LEFT: 0px; WIDTH: 66px; BORDER-BOTTOM: 0px; HEIGHT: 23px" onclick=doDataProcess() type=button name=b_refer1></TD>
+          </TR>
+        <TR>
+          <TD height="20%"></TD>
+          <TD>
+            <!-- 颁发者DN：<input type="text" id="RootCADN" value="" width="30" /><font color="red">(过滤证书选择框中的证书)</font> -->
+	        <input type="hidden" id="RootCADN" value="CN=NCIICCA,C=CN" width="30" />
+	        <input type="hidden" id="signed_data" name="signed_data" /> 
+	        <input type="hidden" id="original_jsp" name="original_jsp" />
+	        <input type="hidden" id="tempType" name="tempType"/>
+	        <input type="hidden" id="original" name="original" value=lsv9ro/> 
+	        <!-- <input type="button" name="b_refer1" onclick="doDataProcess();" value="认证" /> -->
+          </TD>
+          </TR></TBODY></TABLE></TD></TR></TBODY></TABLE>
+</form>
+<br>
+<br>
+<p><br>
+</p>
+</body>
+</html>

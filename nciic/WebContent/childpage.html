@@ -1,0 +1,753 @@
+<html>
+	<head>
+		<title>ChildMenu</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=GBK">
+		
+		<script language="JavaScript"
+			src="/nciic_self/js/commonjs/task.js"
+			type="text/JavaScript"></script>
+		<script language="JavaScript" type="text/JavaScript">
+
+var strAction="/nciic_self/downLoadAction.do";
+  <!--
+  var marqueewidth=200
+  var marqueeheight=10
+  var speed=2
+
+  function show()
+  {
+    var Digital=new Date()
+    var hours=Digital.getHours()
+    var minutes=Digital.getMinutes()
+    var seconds=Digital.getSeconds()
+    if(hours<=0)
+    hours=12
+    if(minutes<=9)
+    minutes="0"+minutes
+    if(seconds<=9)
+    seconds="0"+seconds
+    myclock="现在时间:"+hours+":"+minutes+":"+seconds+"";
+    liveclock.innerHTML=myclock
+    setTimeout("show()",1000)
+  }
+
+  var targetobj = parent.frames[3];
+  var strContextPath = "/nciic_self";
+
+  // 创建 XMLDocument 对象
+  function createDOMDocument()
+  {
+    try {
+
+      var objXML = new ActiveXObject("Msxml2.DOMDocument");
+      objXML.async = false;
+      return objXML;
+    }
+    catch (e) {
+      return null;
+    }
+  }
+
+  function getReceiveMsg()
+  {
+    var strPostAction = strContextPath + "/notice/CrmMessageAction.do?method=receiveMsgList";
+    var strUrl = strContextPath + "/jsp/system/notice/toppagemessage.jsp?s=2";
+    var xmlhttp2 = null;
+    var strHTML = "";
+    try
+    {
+      xmlhttp2 = new ActiveXObject("Msxml2.XMLHTTP");
+      xmlhttp2.Open("POST",strPostAction,false);
+      xmlhttp2.Send("");
+    }
+    catch(e)
+    {
+       alert(e.description);
+    }
+
+    if (xmlhttp2 && xmlhttp2.status==200){
+       var strXML = xmlhttp2.responseText;
+
+       var objXML = null;
+       try
+       {
+	       objXML = new ActiveXObject("MSXML2.DOMDocument");
+	       objXML.loadXML(strXML);
+//	       alert(strXML)
+	       var rowNodeList = objXML.selectNodes("/RESPONSE/RESULT/ROW");
+
+	       var fieldNodeList;
+	       var strMsgID = "";
+	       var strSysID = "";
+	       var strUserName = "";
+	       var strSubject = "";
+	       var strSendTime = "";
+	       var fieldName;
+	       var fieldValue;
+	       var strMessage = "";
+
+	       var strLinkMsg;
+	       var strDocMsg;
+	       if (rowNodeList.length > 0)
+	       {
+		       strHTML = "<p align='left'><a href='#' onclick=\"doShowPage('MessageInfo','" + strUrl + "',-1)\">您有"
+		               +  rowNodeList.length + "条消息提醒信息</a><br><br>";
+
+		       var strDocMsg="<p align='left'>";
+
+		       for(var i = 0; i < rowNodeList.length;i++)
+		       {
+		          fieldNodeList = rowNodeList[i].childNodes;
+
+		          for(var j = 0; j < fieldNodeList.length; j++)
+			      {
+			          fieldName = fieldNodeList[j].nodeName
+			          fieldValue = fieldNodeList[j].text;
+			          if(fieldName == "MESSAGEID")
+			             strMsgID = fieldValue;
+			          else if(fieldName == "FROMUSERNAME")
+			             strUserName = fieldValue;
+			          else if (fieldName == "SENDTIME")
+			             strSendTime = fieldNodeList[j].getAttribute("sv");
+			          else if (fieldName == "SUBJECT")
+			             strSubject = fieldValue;
+			          else if (fieldName == "SYSID")
+			             strSysID = fieldValue;
+			      }
+
+			      strMessage = (i+1) + ":" + strUserName + "于[" + strSendTime + "]向您发送了“" + strSubject + "”消息。";
+			      strLinkMsg = "<a href='#' onclick=\"doShowPageDetail('" + strMsgID + "','" + strSysID + "')\"><font color='#000088'>";
+			      strDocMsg += strLinkMsg + strMessage;
+
+		       }
+
+		       strDocMsg += "</a><br><br>";
+		       strHTML += "<marquee scrollAmount='"+speed+"' style='width:" + marqueewidth + " height:" + marqueeheight +"'>" + strDocMsg + "</marquee>";
+	           strHTML += "</p>";
+	           targetobj.depend(strHTML);
+	       }
+
+       }
+       catch(ex)
+       {
+          alert(ex.description);
+       }
+       objXML = null;
+    }
+
+
+    xmlhttp2 = null;
+    return strHTML;
+  }
+
+  function promptMessage()
+  {
+    try
+    {
+      if(targetobj.document.getElementById("eMeng")!=null)
+      {
+        getReceiveMsg();
+      }
+    }catch(E){}
+
+    setTimeout("promptMessage()",60*1000);
+
+  }
+  //-->
+  </script>
+		<script language="javascript" type="text/JavaScript">
+  <!--
+  var currentMenuName = "";
+  function FUNC_MENUTREE_LEAF_CLICK(menuName, menuLocation, menuTarget,mdesc){
+    if (currentMenuName != "")
+    {
+      document.all("TD_ID_"+currentMenuName).className = "ltdstyle";
+      document.all("A_ID_"+currentMenuName).className = "lastyle";
+    }
+    currentMenuName = menuName;
+    document.all("TD_ID_"+currentMenuName).className = "ltdfocusstyle";
+    document.all("A_ID_"+currentMenuName).className = "lafocusstyle";
+    if (menuLocation != "")
+    {
+      menuLocation = "/nciic_self"+"/"+menuLocation;
+      if (menuTarget == "")
+      window.location.href=menuLocation;
+      else{
+        parent.frames[2].doShowPage(menuName,menuLocation,-1,mdesc);
+      }
+    }
+    //return false;
+  }
+  function FUNC_MENUTREE_PARENT_CLICK(menuName, menuLocation, menuTarget,mdesc){
+    var tableid,tdid,treeid,aid,aelement,treeelement,imgelement,tableelement,tdelement;
+    treeid="IMG_ID_"+menuName;
+    tdid="TD_ID_"+menuName;
+    aid="A_ID_"+menuName;
+    tableid=treeid+"_TABLE_ID";
+    imgelement=document.all(menuName);
+    treeelement=document.all(treeid);
+    tdelement=document.all(tdid);
+    aelement=document.all(aid);
+    tableelement=document.all(tableid);
+    if (tableelement.style.display=="none"){
+      tableelement.style.display='';
+      if (treeelement.className == "/nciic_self/images/default/menu/tree_single_close.gif"){
+        treeelement.src="/nciic_self/images/default/menu/tree_single_open.gif";
+        treeelement.className="/nciic_self/images/default/menu/tree_single_open.gif";
+      }else if (treeelement.className == "/nciic_self/images/default/menu/tree_first_close.gif"){
+        treeelement.src="/nciic_self/images/default/menu/tree_first_open.gif";
+        treeelement.className="/nciic_self/images/default/menu/tree_first_open.gif";
+      }else if (treeelement.className == "/nciic_self/images/default/menu/tree_last_close.gif"){
+        treeelement.src="/nciic_self/images/default/menu/tree_last_open.gif";
+        treeelement.className="/nciic_self/images/default/menu/tree_last_open.gif";
+      }else{
+        treeelement.src="/nciic_self/images/default/menu/tree_open.gif";
+        treeelement.className="/nciic_self/images/default/menu/tree_open.gif";
+      }
+      tdelement.className="ntdfocusstyle";
+      aelement.className="nafocusstyle";
+      imgelement.src="/nciic_self/images/default/menu/openimg_b.gif";
+    }else{
+      tableelement.style.display="none";
+      if (treeelement.className == "/nciic_self/images/default/menu/tree_single_open.gif"){
+        treeelement.src="/nciic_self/images/default/menu/tree_single_close.gif";
+        treeelement.className="/nciic_self/images/default/menu/tree_single_close.gif";
+      }else if (treeelement.className == "/nciic_self/images/default/menu/tree_first_open.gif"){
+        treeelement.src="/nciic_self/images/default/menu/tree_first_close.gif";
+        treeelement.className="/nciic_self/images/default/menu/tree_first_close.gif";
+      }else if (treeelement.className == "/nciic_self/images/default/menu/tree_last_open.gif"){
+        treeelement.src="/nciic_self/images/default/menu/tree_last_close.gif";
+        treeelement.className="/nciic_self/images/default/menu/tree_last_close.gif";
+      }else{
+        treeelement.src="/nciic_self/images/default/menu/tree_close.gif";
+        treeelement.className="/nciic_self/images/default/menu/tree_close.gif";
+      }
+      tdelement.className="ntdstyle";
+      aelement.className="nastyle";
+      imgelement.src="/nciic_self/images/default/menu/closeimg_b.gif";
+    }
+    if (menuLocation != "" && menuLocation != "#"){
+      if (menuTarget == "")
+      window.location.href=menuLocation;
+      else{
+        parent.frames[2].doShowPage(menuName,menuLocation,-1);
+      }
+    }
+  }
+  function FUNC_MENUTREE_TREE_CLICK()
+  {
+    var tableid,nameid,tdid,aid,aelement,treeelement,tableelement,imgelement,tdelement;
+    treeelement=window.event.srcElement;
+    if(treeelement.name=="CLASS_IS_PARENT")
+    {
+      nameid=treeelement.id.substring(7,treeelement.id.length);
+      tdid="TD_ID_"+nameid;
+      aid="A_ID_"+nameid;
+      tableid=treeelement.id+"_TABLE_ID";
+      tableelement=document.all(tableid);
+      imgelement=document.all(nameid);
+      tdelement=document.all(tdid);
+      aelement=document.all(aid);
+      if (tableelement.style.display=="none")
+      {
+        tableelement.style.display='';
+        imgelement.src="/nciic_self/images/default/menu/openimg_b.gif";
+        tdelement.className="ntdfocusstyle";
+        aelement.className="nafocusstyle";
+        if (treeelement.className == "/nciic_self/images/default/menu/tree_single_close.gif"){
+          treeelement.src="/nciic_self/images/default/menu/tree_single_open.gif";
+          treeelement.className="/nciic_self/images/default/menu/tree_single_open.gif";
+        }else if (treeelement.className == "/nciic_self/images/default/menu/tree_first_close.gif"){
+          treeelement.src="/nciic_self/images/default/menu/tree_first_open.gif";
+          treeelement.className="/nciic_self/images/default/menu/tree_first_open.gif";
+        }else if (treeelement.className == "/nciic_self/images/default/menu/tree_last_close.gif"){
+          treeelement.src="/nciic_self/images/default/menu/tree_last_open.gif";
+          treeelement.className="/nciic_self/images/default/menu/tree_last_open.gif";
+        }else{
+          treeelement.src="/nciic_self/images/default/menu/tree_open.gif";
+          treeelement.className="/nciic_self/images/default/menu/tree_open.gif";
+        }
+      }
+      else
+      {
+        tableelement.style.display="none";
+        imgelement.src="/nciic_self/images/default/menu/closeimg_b.gif";
+        tdelement.className="ntdstyle";
+        aelement.className="nastyle";
+        if (treeelement.className == "/nciic_self/images/default/menu/tree_single_open.gif"){
+          treeelement.src="/nciic_self/images/default/menu/tree_single_close.gif";
+          treeelement.className="/nciic_self/images/default/menu/tree_single_close.gif";
+        }else if (treeelement.className == "/nciic_self/images/default/menu/tree_first_open.gif"){
+          treeelement.src="/nciic_self/images/default/menu/tree_first_close.gif";
+          treeelement.className="/nciic_self/images/default/menu/tree_first_close.gif";
+        }else if (treeelement.className == "/nciic_self/images/default/menu/tree_last_open.gif"){
+          treeelement.src="/nciic_self/images/default/menu/tree_last_close.gif";
+          treeelement.className="/nciic_self/images/default/menu/tree_last_close.gif";
+        }else{
+          treeelement.src="/nciic_self/images/default/menu/tree_close.gif";
+          treeelement.className="/nciic_self/images/default/menu/tree_close.gif";
+        }
+      }
+    }
+  }
+  function changeDb(obj){
+    var allDb = document.getElementsByTagName("img");
+    for(var i =0;i<allDb.length;i++){
+      if(allDb[i].init){
+        allDb[i].src="/nciic_self/images/blueTemplate/"+allDb[i].init;
+      }
+    }
+    obj.src="/nciic_self/images/blueTemplate/"+obj.clc;
+    switch (obj.init){
+      case "db.gif":
+      // TODO
+      parent.frames[2].refreshPage(0);
+      parent.frames[2].doSwitchPage(0);
+      break;
+      case "dh.gif":
+      parent.frames[2].doShowPage("","/nciic_self/help/help.jsp?template=blueTemplate",-1,"");
+      break;
+      case "rz.gif":
+      // TODO
+      parent.frames[2].doShowPage("","/nciic_self/jsp/system/notice/toppagenotice.jsp?template=blueTemplate",-1,"");
+      break;
+      case "xg.gif":
+      // TODO
+      parent.frames[2].doShowPage("","/nciic_self/jsp/framework/orgmanage/changePass.jsp?template=blueTemplate",-1,"");
+      break;
+      case "xi.gif":
+      // TODO
+      parent.frames[2].doShowPage("","/nciic_self/jsp/system/notice/toppagemessage.jsp?template=blueTemplate",-1,"");
+      break;
+      case "xq.gif":
+      // TODO
+      parent.frames[2].doShowPage("","",-1,"");
+      break;
+    }
+  }
+
+  function doDownLoad(){
+  	var postAction = strAction+"?method=videoDownLoad";
+	document.frmPost.action =postAction;
+	document.frmPost.submit();
+	setTimeout("countVideo()",10*1000);//视频下载后，过十秒钟调用countVideo()更新下载次数。
+  }
+
+  function doDownLoadSheet(){
+  	var postAction = strAction+"?method=sheetDownLoad";
+	document.frmPost.action =postAction;
+	document.frmPost.submit();
+	setTimeout("countVideo()",10*1000);//视频下载后，过十秒钟调用countVideo()更新下载次数。
+  }
+
+  document.onclick = FUNC_MENUTREE_TREE_CLICK;
+  //-->
+  </script>
+  <!-- 下面脚本用来从库里（表：serv_count） 读取视频教程的下载次数 ssy 2010.05.05-->
+  <script language="javascript">
+var XMLHttpReq;
+var requestURL;
+	//创建XMLHttpRequest对象
+function createXMLHttpRequest() {
+	if(window.XMLHttpRequest) { //Mozilla 浏览器
+		XMLHttpReq = new XMLHttpRequest();
+	}
+	else if (window.ActiveXObject) { // IE浏览器
+		try {
+			XMLHttpReq = new ActiveXObject("Msxml2.XMLHTTP");
+		} catch (e) {
+			try {
+				XMLHttpReq = new ActiveXObject("Microsoft.XMLHTTP");
+			} catch (e) {}
+		}
+	}
+}
+//发送请求函数
+function sendRequest(url) {
+	createXMLHttpRequest();
+	XMLHttpReq.open("GET", url, true);
+	XMLHttpReq.onreadystatechange = processResponse;//指定响应函数
+	XMLHttpReq.send(null);  // 发送请求
+}
+// 处理返回信息函数
+
+function processResponse() {
+	if (XMLHttpReq.readyState == 4) { // 判断对象状态
+    	if (XMLHttpReq.status == 200) { // 信息已经成功返回，开始处理信息
+          // var res=XMLHttpReq.responseXML.getElementsByTagName("res")[0].firstChild.data;
+            var res=XMLHttpReq.responseText;
+            var  values=res.split(",");
+
+            for(var i in values){
+              var xscs=values[i].split("=");
+              if(values[i].indexOf('video')!=-1){
+                document.getElementById("xzcs").innerHTML=xscs[1];
+              }else if(values[i].indexOf('sheet')!=-1){
+                document.getElementById("xzcsSheet").innerHTML=xscs[1];
+              }
+            }
+
+        } else { //页面不正常
+        	document.getElementById("xzcs").innerHTML="0";
+            document.getElementById("xzcsSheet").innerHTML="0";
+        }
+    }
+}
+
+function countVideo(){//调用com.nciic.crm.support.CountAction ，获取视频教程下载次数（参数：video标识视频教程）。ssy 2010.05.05
+	  sendRequest(strContextPath+"/countAction.do?name=video");//ssy  视频计数。
+}
+
+
+</script>
+  
+		<style type="text/css">
+<!--
+body {
+	scrollbar-face-color: #7BA2E7;
+	scrollbar-highlight-color: whitesmoke;
+	scrollbar-3dlight-color: silver;
+	scrollbar-darkshadow-color: darkgray;
+	scrollbar-shadow-color: white;
+	scrollbar-arrow-color: #FFDA46;
+	scrollbar-track-color: gainsboro;
+}
+
+.tablestyle {
+	font-family: "宋体";
+	font-size: 12px;
+	color: #000000;
+	text-decoration: none;
+	clip: rect();
+	font-weight: normal
+}
+
+.tdstyle {
+	
+}
+
+.tdfocusstyle {
+	background-image: url(link_bkA.gif);
+}
+
+.ntdstyle {
+	font-family: "宋体";
+	font-size: 12px;
+	color: #000000
+}
+
+.ntdfocusstyle {
+	font-family: "宋体";
+	font-size: 12px;
+	color: #000000
+}
+
+.ltdstyle {
+	font-family: "宋体";
+	font-size: 12px;
+}
+
+.ltdfocusstyle {
+	background-color: #FFFFFF;
+	font-family: "宋体";
+	font-size: 12px;
+}
+
+A.nastyle:link {
+	COLOR: #28247D;
+	TEXT-DECORATION: none;
+	font-family: "宋体";
+	font-size: 12px;
+}
+
+A.nastyle:visited {
+	COLOR: #28247D;
+	TEXT-DECORATION: none;
+	font-family: "宋体";
+	font-size: 12px;
+}
+
+A.nastyle:active {
+	COLOR: #28247D;
+	TEXT-DECORATION: none;
+	font-family: "宋体";
+	font-size: 12px;
+}
+
+A.nastyle:hover {
+	COLOR: #28247D;
+	TEXT-DECORATION: underline;
+	font-family: "宋体";
+	font-size: 12px;
+}
+
+A.nafocusstyle:link {
+	COLOR: #28247D;
+	TEXT-DECORATION: none;
+	font-family: "宋体";
+	font-size: 12px;
+}
+
+A.nafocusstyle:visited {
+	COLOR: #28247D;
+	TEXT-DECORATION: none;
+	font-family: "宋体";
+	font-size: 12px;
+}
+
+A.nafocusstyle:active {
+	COLOR: #28247D;
+	TEXT-DECORATION: none;
+	font-family: "宋体";
+	font-size: 12px;
+}
+
+A.nafocusstyle:hover {
+	COLOR: #28247D;
+	TEXT-DECORATION: underline;
+	font-family: "宋体";
+	font-size: 12px;
+}
+
+A.lastyle:link {
+	COLOR: #000000;
+	TEXT-DECORATION: none;
+	font-family: "宋体";
+	font-size: 12px;
+}
+
+A.lastyle:visited {
+	COLOR: #000000;
+	TEXT-DECORATION: none;
+	font-family: "宋体";
+	font-size: 12px;
+}
+
+A.lastyle:active {
+	TEXT-DECORATION: none;
+	font-family: "宋体";
+	font-size: 12px;
+}
+
+A.lastyle:hover {
+	COLOR: #000000;
+	TEXT-DECORATION: none;
+	font-family: "宋体";
+	font-size: 12px;
+}
+
+A.lafocusstyle:link {
+	COLOR: #000000;
+	TEXT-DECORATION: none;
+	font-family: "宋体";
+	font-size: 12px;
+}
+
+A.lafocusstyle:visited {
+	COLOR: #000000;
+	TEXT-DECORATION: none;
+	font-family: "宋体";
+	font-size: 12px;
+}
+
+A.lafocusstyle:active {
+	TEXT-DECORATION: none;
+	font-family: "宋体";
+	font-size: 12px;
+}
+
+A.lafocusstyle:hover {
+	COLOR: #000000;
+	TEXT-DECORATION: none;
+	font-family: "宋体";
+	font-size: 12px;
+}
+-->
+</style>
+	</head>
+	<!--onload="promptMessage();"-->
+	<body onload="promptMessage();countVideo();" style="overflow-x: auto"
+		;background-color:#EFF3FF;"  topmargin="0" leftmargin="0"
+		rightmargin="0" bottommargin="0" marginwidth="0" marginheight="0"
+		gbcolor="#bacfea" background="#bacfea">
+		
+		<div align=center width="165" style="margin-left: 0px;">
+			<table border="0" align="center" style="font-size: 9pt" width="100%"
+				height="100%" cellpadding="0" cellspacing="0">
+				<tr>
+					<td height="100%" width="165" align="center" gbcolor="#bacfea"
+						style="background-color: #EFF3FF;">
+						<table border="0" align="center" style="font-size: 9pt"
+							width="100%" height="100%">
+
+							<tr>
+								<td width="25">
+									&nbsp;
+								</td>
+								<td width="100%" align="center">
+									<span style="font-size: 9pt; color: black"> 2015-01-27 14:33:12
+									</span>
+								</td>
+							</tr>
+							<tr>
+								<td width="25">
+									&nbsp;
+								</td>
+								<td width="100%"></td>
+							</tr>
+							<tr>
+								<td width="25">
+									&nbsp;
+								</td>
+								<td width="100%" align="center">
+									<span style="font-size: 9pt; color: black"> 帐号：</span>
+								</td>
+							</tr>
+							<tr>
+								<td width="25">
+									&nbsp;
+								</td>
+								<td width="100%"></td>
+							</tr>
+							<tr>
+								<td width="25">
+									&nbsp;
+								</td>
+								<td width="100%" align="center">
+									<span style="font-size: 9pt; color: black">所属：证监会稽查局->证监会稽查局多项</span>
+								</td>
+							</tr>
+							<tr height="20">
+								<td width="25">
+									&nbsp;
+								</td>
+								<td></td>
+							</tr>
+
+							<tr>
+								<td width="25">
+									&nbsp;
+								</td>
+								<td width="139" height="37">
+									<a style="cursor: hand;"><img onclick="changeDb(this);"
+											init="rz.gif" clc="rzh.gif"
+											src="/nciic_self/images/blueTemplate/rz.gif"
+											alt="" />
+									</a>
+								</td>
+							</tr>
+							<tr>
+								<td width="25">
+									&nbsp;
+								</td>
+								<td width="139" height="37">
+									<a style="cursor: hand;"><img onclick="changeDb(this);"
+											init="xg.gif" clc="xgh.gif"
+											src="/nciic_self/images/blueTemplate/xg.gif"
+											alt="" />
+									</a>
+								</td>
+							</tr>
+							<tr>
+								<td width="25">
+									&nbsp;
+								</td>
+								<td width="139" height="37">
+									<a style="cursor: hand;"><img onclick="changeDb(this);"
+											init="xi.gif" clc="xih.gif"
+											src="/nciic_self/images/blueTemplate/xi.gif"
+											alt="" />
+									</a>
+								</td>
+							</tr>
+							<tr height="15">
+								<td width="25">
+									&nbsp;
+								</td>
+								<td></td>
+							</tr>
+                            <tr>
+								<td width="25">
+									&nbsp;
+								</td>
+								<td width="100%" align="left">
+									<a href="javascript:doDownLoadSheet();" style="cursor: hand;"><span
+										style="font-size: 11pt; color: black; font-weight: bold">客户手册>></span>
+									</a>
+								</td>
+							</tr>
+
+								<!-- 增加下载次数显示  songshuyou 2010.03.31 -->
+							<tr>
+								<td width="25">
+									&nbsp;
+								</td>
+								<td width="100%" align="left">
+									<span  style="font-size: 10pt; color: black; font-weight: bold">已下载   <span id="xzcsSheet" style="font-size: 10pt; color: red; font-weight: bold">
+									</span>  次</span>
+								</td>
+							</tr>
+
+							<tr>
+								<td width="25">
+									&nbsp;
+								</td>
+								<td width="100%" align="left">
+									<a href="javascript:doDownLoad();" style="cursor: hand;"><span
+										style="font-size: 11pt; color: black; font-weight: bold">系统使用教程>></span>
+									</a>
+								</td>
+							</tr>
+
+								<!-- 增加下载次数显示  songshuyou 2010.03.31 -->
+							<tr>
+								<td width="25">
+									&nbsp;
+								</td>
+								<td width="100%" align="left">
+									<span  style="font-size: 10pt; color: black; font-weight: bold">已下载   <span id="xzcs" style="font-size: 10pt; color: red; font-weight: bold">
+									</span>  次</span>
+								</td>
+							</tr>
+							<!-- //end -->
+
+							<tr height="15">
+								<td width="25">
+									&nbsp;
+								</td>
+								<td style="color:'red';font-size: 10pt;font-weight: bold">注：为了您能够得到标准的下载文件，<span style="text-decoration:underline;font-size:11pt;">建议不要使用迅雷等！</span></td>
+							</tr>
+
+							<tr height="50">
+								<td width="25">
+									&nbsp;
+								</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td width="25">
+									&nbsp;
+								</td>
+								<td width="100%" align="center">
+									<span style="font-size: 9pt; color: black">“中心客户服务专线：010-59832800”</span>
+								</td>
+							</tr>
+
+							<tr>
+								<td width="25">
+									<form name="frmPost" action="" method="post">
+									</form>
+								</td>
+								<td width="100%" height="100%"></td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</div>
+
+		
+	</body>
+</html>
+
+

@@ -1,0 +1,1226 @@
+<HTML XMLNS:ELEMENT>
+<?IMPORT NAMESPACE="ELEMENT" IMPLEMENTATION="/nciic_self/js/commonjs/newcontrol2.htc">
+<script  language="javascript" src="/nciic_self/js/commonjs/servicesdefault.js"> </script>
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html;charset=GBK">
+<LINK type="text/css" rel="stylesheet" href="/nciic_self/css/blueTemplate/default.css"> </LINK>
+<LINK type="text/css" rel="stylesheet" href="/nciic_self/css/blueTemplate/xtree.css"> </LINK>
+<script  language="javascript" src="/nciic_self/js/commonjs/TimePicker.js"> </script>
+<script  language="javascript" src="/nciic_self/js/commonjs/common.js"> </script>
+<script  language="javascript" src="/nciic_self/js/commonjs/default.js"> </script>
+<script  language="javascript" src="/nciic_self/js/commonjs/xTabPage.js"> </script>
+<script  language="javascript" src="/nciic_self/js/commonjs/xHint.js"> </script>
+<script  language="javascript" src="/nciic_self/js/commonjs/xWin.js"> </script>
+<script  language="javascript" src="/nciic_self/js/commonjs/xScrollBar.js"> </script>
+<script  language="javascript" src="/nciic_self/js/commonjs/xDic.js"> </script>
+<script  language="javascript" src="/nciic_self/js/commonjs/more.js"> </script>
+<script  language="javascript" src="/nciic_self/js/commonjs/xQuery.js"> </script>
+<script  language="javascript" src="/nciic_self/js/commonjs/xPucker.js"> </script>
+<script language="JavaScript">
+var winColor = "#7BA2E7";
+var winTitleColor = "navy";
+var winCaretColor = "FFCC33";
+var iColor = "royalblue";
+var g_sImgPath = "/nciic_self/images/default/"</SCRIPT>
+
+
+<script type="text/javascript">
+var fwzylx = 01 ;
+var tsfwbs = 'null';
+	//出生日期格式提示
+	function setMsg(){
+		setHint('<FONT color=darkorange>出生日期</FONT>：年龄段格式为：1到3位数字，日期格式为：yyyy（年）、yyyymm（年月）、yyyymmdd（年月日）。');
+	}
+	//年龄下线
+	var limtYear=1800;
+	var tempLimtYear=18000101;
+	time  =  new  Date();
+	//当前年份
+	y=time.getYear();
+	month=time.getMonth();
+	date=time.getDate();
+	month=month+1;
+	if(month<10){
+		month="0"+month;
+	}
+	sysDate=y+""+month+""+date;
+
+	/*
+	*  去除空格
+	*/
+	function trim(str){
+    	// 用正则表达式将前后空格
+    	// 用空字符串替代。
+    	return str.replace(/(^\s*)|(\s*$)/g, "");
+	}
+	/*
+	*  校验日期
+	*/
+	function validateTime(obj,FLAG){
+		var t1=document.getElementById(obj);
+		if(trim(t1.value)==""){
+			return ;
+		}
+		if(trim(t1.value).length>0 && trim(t1.value).length<=8){
+			//文本框字符信息
+			var strvalue=zerop(trim(t1.value));
+			//输入 1 位数字：年龄
+			if(trim(t1.value).length==1){
+				var birthday=y-parseInt(trim(t1.value));
+				if(birthday>=limtYear){
+					if(FLAG=="0"){
+						return birthday+"0101";
+					}else{
+						return birthday+"1231";
+					}
+				}else{
+					alert("出生年龄应小于等于"+(y-limtYear)+"！");
+					return false;
+				}
+			}
+			if(strvalue==""){
+				alert('请输入正确的日期格式！');
+				return ;
+			}else{
+				//转化成数字
+				var invalue=parseInt(strvalue);
+				//输入 2 - 3 位数字：年龄
+			 if(strvalue.length>1&&strvalue.length<=3){
+				//alert("1-3");
+				var birthday=y-invalue;
+				if(birthday>=limtYear){
+					if(FLAG=="0"){
+						return birthday+"0101";
+					}else{
+						return birthday+"1231";
+					}
+				}else{
+					alert("出生年龄应小于等于"+(y-limtYear)+"！");
+					//t1.select();
+					return false;
+				}
+			}
+			//输入4位数字：年份
+			else if(strvalue.length==4){
+				//alert("4");
+				if(validateYear(invalue,"01","01")==true){
+					//alert(invalue+"0000");
+					if(FLAG=="0"){
+						return invalue+"0101";
+					}else{
+						return invalue+"1231";
+					}
+				}
+				else{
+					alert("出生年份应在"+limtYear+"-"+y+"之间！");
+					//t1.select();
+					return false;
+				}
+			}
+			//输入5、6位数字：年份+月份
+			else if(strvalue.length==5||strvalue.length==6){
+				//alert("5-6");
+				tempYear = strvalue.substr(0,4);
+				//alert(tempYear);
+				var intyear=parseInt(tempYear);
+
+					//alert(invalue+"0000");
+					if(strvalue.length==5){
+						mm=strvalue.substr(4,1);
+						if(validateMonth(mm)){
+							//alert(intyear+"0"+mm+"00");
+							if(validateYear(intyear,("0"+mm),"01")){
+								if(FLAG=="0"){
+									//alert(intyear+"0"+mm+"01");
+									return intyear+"0"+mm+"01";
+								}else{
+									//alert(intyear+"0"+mm+""+getMaxDatas(mm));
+									return intyear+"0"+mm+""+getMaxDatas(intyear,mm);
+								}
+							}
+							else{
+								alert("出生年份应在"+tempLimtYear+"-"+sysDate+"之间！");
+								//t1.select();
+								return false;
+							}
+						}else{
+							alert("输入的月份不合法！");
+							//t1.select();
+							return false;
+						}
+					}else{
+						mm=strvalue.substr(4,2);
+						if(validateMonth(zerop(mm))){
+							//alert(intyear+mm+"00");
+							if(validateYear(intyear,mm,"01")){
+								if(FLAG=="0"){
+									//alert(intyear+""+mm+"01");
+									return intyear+""+mm+"01";
+								}else{
+									//alert(intyear+""+mm+""+getMaxDatas(mm));
+									return intyear+""+mm+""+getMaxDatas(intyear,mm);
+								}
+							}
+							else{
+								alert("出生年份应在"+tempLimtYear+"-"+sysDate+"之间！");
+								//t1.select();
+								return false;
+							}
+						}else{
+							alert("输入的月份不合法！");
+							//t1.select();
+							return false;
+						}
+					}
+			}
+			//输入7、8位数字：年份+月份+天
+			else if(strvalue.length==7||strvalue.length==8){
+				tempYear = strvalue.substr(0,4);
+				var intyear=parseInt(tempYear);
+
+					if(strvalue.length==7){
+						var mm=strvalue.substr(4,2);
+						if(validateMonth(zerop(mm))){
+							//alert(intyear+mm+"00");
+							var d=strvalue.substr(6,1);
+							//alert(d);
+							if(RunNian(intyear,zerop(mm),d)){
+								//alert(intyear+mm+"0"+d);
+								if(validateYear(intyear,mm,("0"+d))){
+									return intyear+mm+"0"+d;
+								}else{
+									alert("出生年份应在"+tempLimtYear+"-"+sysDate+"之间！");
+									//t1.select();
+									return false;
+								}
+							}else{
+								alert("该月份中的天数不合法！");
+								//t1.select();
+								return false;
+							}
+							//return intyear+mm+"00";
+						}else{
+							alert("输入的月份不合法！");
+							//t1.select();
+							return false;
+						}
+					}else{
+						var mm=strvalue.substr(4,2);
+						if(validateMonth(zerop(mm))){
+							//alert(intyear+mm+"00");
+							var d=strvalue.substr(6,2);
+							//alert(d);
+							if(RunNian(intyear,zerop(mm),zerop(d))){
+								//alert(intyear+mm+d);
+								if(validateYear(intyear,mm,d)){
+									return intyear+mm+d;
+								}else{
+									alert("出生年份应在"+tempLimtYear+"-"+sysDate+"之间！");
+									//t1.select();
+									return false;
+								}
+
+							}else{
+								alert("该月份中的天数不合法！");
+								//t1.select();
+								return false;
+							}
+							//return intyear+mm+"00";
+						}else{
+							alert("输入的月份不合法！");
+							//t1.select();
+							return false;
+						}
+					}
+				}
+			}
+		}else if(trim(t1.value).length>8){
+			alert("请输入1 - 3位数的年龄或者"+limtYear+"-"+y+"之间的日期！");
+			return false;
+		}
+	}
+	/*
+	*  只能输入数字
+	*/
+	function onlyNum(obj,sValue)
+	{
+		//alert(obj);
+	 	if(!(/^\d*$/.test(sValue))){
+	 		document.getElementById(obj).value="";
+	 		//$('JS_CSRQ').value='';
+	 	}
+	}
+	// 是否是整数
+function isInt(sValue)
+{
+
+}
+	//去掉数字字符串前的0
+	function zerop(oldvalue)
+	{
+		//alert("aa"+oldvalue);
+ 		return oldvalue.replace(/\b(0+)/gi,"");
+	}
+	//验证年份是否在上线和下线之间
+	function validateYear(yea,mo,d){
+		month=month+1;
+		if(month<10){
+			month="0"+month;
+		}
+		if(date<10){
+			date="0"+date;
+		}
+		if((yea+""+mo+""+d)>=tempLimtYear&&(yea+""+mo+""+d)<=sysDate){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	//验证月份
+	function validateMonth(m){
+		if(m>0&&m<=12){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	//判断月份中的天数
+    function  RunNian(The_Year,mon,day)
+   {
+		if(mon==2){
+			if ((The_Year%400==0)||((The_Year%4==0)&&(The_Year%100!=0)))
+			{
+				if(day>=1&&day<=29){
+					return true;
+				}else{
+					return false;
+				}
+			}else
+			{
+				if(day>=1&&day<=28){
+					return true;
+				}else{
+					return false;
+				}
+			}
+		}
+		else if(mon==1||mon==3||mon==5||mon==7||mon==8||mon==10||mon==12){
+			if(day>=1&&day<=31){
+				return true;
+			}else{
+				return false;
+			}
+		}else{
+			if(day>=1&&day<=30){
+				return true;
+			}else{
+				return false;
+			}
+		}
+   }
+   //得到本月的最大天数
+   function getMaxDatas(The_Year,mm){
+   		if(mm==2){
+			if ((The_Year%400==0)||((The_Year%4==0)&&(The_Year%100!=0)))
+			{
+				return 28;
+			}else
+			{
+				return 29;
+			}
+		}
+		else if(mm==1||mm==3||mm==5||mm==7||mm==8||mm==10||mm==12){
+			return 31;
+		}else{
+			return 30;
+		}
+   }
+
+	function doSubmit(){
+		var t1=document.getElementById("KS_CSRQ_BEG");
+		var t2=document.getElementById("JS_CSRQ_END");
+		var sh=document.getElementById("KS_CSRQ").value;
+		var eh=document.getElementById("JS_CSRQ").value;
+		var time1=t1.value;
+		var time2=t2.value;
+		if(trim(time1)!=""&&trim(time2)!=""){
+			if((time1.length>0&&time1.length<=3)&&(time2.length>0&&time2.length<=3)){
+				if(time1<time2){
+					document.getElementById("KS_CSRQ").value = eh.substring(0,4)+"0101";
+					document.getElementById("JS_CSRQ").value = sh.substring(0,4)+"1231";
+					return true;
+				}
+			}else{
+				if(sh>eh){
+					alert("开始日期应小于结束日期！");
+					t2.select();
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+</script>
+<SCRIPT language="JavaScript">
+<!--
+      //action变量定义需要重新定义
+      var strAction="/nciic_self/serv/ServicesParseAction.do";
+      var sendAction;
+      var sendobj;
+
+      //页面初始化
+      function doInit()
+      {
+          showButtons(["cmdSearch","cmdReset"]);
+          //2009-2-26 页面打印
+          hideButtons(["cmdPrint"]);
+          setDefaultValue();
+      }
+      //重置编辑录入区域
+      function doReset()
+      {
+          resetValueByPages([0]);
+          clearTxtXML();
+      }
+
+      function onSwitchPage()
+      {
+          if(g_xDic){
+              g_xDic.hidden();
+          }
+          switch(g_xTabPane.selectedIndex)
+          {
+              case 0:
+                  showButtons(["cmdSearch","cmdReset"]);
+                  //2009-2-26 页面打印
+                  hideButtons(["cmdPrint"]);
+                  break;
+              case 1:
+                  hideButtons(["cmdSearch","cmdReset"]);
+                  //2009-2-26 页面打印
+                  showButtons(["cmdPrint"]);
+                      break;
+              case 2:
+                  hideButtons(["cmdSearch","cmdReset"]);
+                  break;
+             default:
+                  break;
+        }
+    }
+    //行选中事件(针对主页面组合查询)
+    function tr_click(obj)
+    {
+       var pk="";
+	   var val="";
+	   var bm="";
+	   var id="";
+       var sd="";
+       var xmlDom = createDOMDocument();
+       xmlDom.loadXML(document.getElementById("resultXML").value);
+       var list = xmlDom.selectNodes("//RESPONSE/RESULT/RCN");
+       for(var i=0;i<list.length;i++)
+       {
+           for(var j=0;j<list[i].childNodes.length;j++)
+           {
+               if(list[i].childNodes[j].nodeName=="PK"){
+                   pk =list[i].childNodes[j].text;
+               }else if (list[i].childNodes[j].nodeName=="BM"){
+                   bm = list[i].childNodes[j].text;
+               }else if (list[i].childNodes[j].nodeName=="ID"){
+                   id = list[i].childNodes[j].text;
+               }else if (list[i].childNodes[j].nodeName=="SD"){
+                   sd = list[i].childNodes[j].text;
+               }
+           }
+      }
+      xmlDom.loadXML(obj.rowxml);
+      var list = xmlDom.selectNodes("//ROW/VAL");
+      for(var j=0;j<list.length;j++)
+      {
+          val = list[j].text;
+      }
+      if(pk!="" &&val!="" && bm!="" && id != "")
+         showDetails(pk,val,bm,id,sd);
+  }
+  //针对主页面组合查询
+  function radio_click(obj)
+  {
+      tr_click(obj);
+   }
+
+  //提交查询
+  function doSearch (n)
+  {
+	  rela.style.display="none";
+	  detail.style.display="none";
+
+	  if(n=="03"){
+          //支付联盟处理开始
+/*         var hmdlx = document.getElementById("HMDLX");
+          //支付联盟处理结束
+          if(hmdlx!=null){
+            if(hmdlx.value=="")
+          	{
+          		alert("必输项不能为空！");
+              	return ;
+          	}
+            var gmsfhm=document.getElementById("GMSFHM");
+            var xm=document.getElementById("XM");
+          	var jgmc = document.getElementById("JGMC");
+          	var yyzzbh = document.getElementById("YYZZBH");
+          	var sjhm = document.getElementById("SJHM");
+          	var yhkh = document.getElementById("YHKH");
+          	var emall = document.getElementById("EMAIL");
+          	var urldz = document.getElementById("URLDZ");
+          	var urltzdz = document.getElementById("URLTZDZ");
+          	if(jgmc.value==""&&yyzzbh.value==""&&sjhm.value==""&&yhkh.value==""&&emall.value==""&&urldz.value==""&&urltzdz.value==""&&gmsfhm.value==""&&xm.value=="")
+          	{
+          		alert("非必输项至少需要输入一项！");
+              	return ;
+          	}
+          }*/ 
+      }
+
+      if(n=="04"){
+          //对组合查询身份证号和姓名不能同时为空 2009-4-14
+          var gmsfhm=document.getElementById("GMSFHM");
+          var xm=document.getElementById("XM");
+          //支付联盟处理开始
+          if(fwzylx!='20')
+          {
+          if(gmsfhm==null&&xm==null){
+            alert("组合业务中身份证号码和姓名必须有一个作为输入条件！");
+            return;
+          }
+
+          if(gmsfhm!=null&&xm!=null&&gmsfhm.value==""&&xm.value==""){
+              alert("组合业务中的身份证号码和姓名不能同时为空！");
+              return ;
+          }
+
+          if((gmsfhm!=null&&xm==null&&gmsfhm.value=="")||(gmsfhm==null&&xm!=null&&xm.value=="")){
+              alert("组合业务中的身份证号码和姓名不能同时为空！");
+              return ;
+          }
+          }/*
+          else{
+            if(hmdlx.value=="")
+          	{
+          		alert("必输项不能为空！");
+              	return ;
+          	}
+          	var jgmc = document.getElementById("JGMC");
+          	var yyzzbh = document.getElementById("YYZZBH");
+          	var sjhm = document.getElementById("SJHM");
+          	var yhkh = document.getElementById("YHKH");
+          	var emall = document.getElementById("EMAIL");
+          	var urldz = document.getElementById("URLDZ");
+          	var urltzdz = document.getElementById("URLTZDZ");
+          	if(jgmc.value==""&&yyzzbh.value==""&&sjhm.value==""&&yhkh.value==""&&emall.value==""&&urldz.value==""&&urltzdz.value==""&&gmsfhm.value==""&&xm.value=="")
+          	{
+          		alert("非必输项至少需要输入一项！");
+              	return ;
+          	}
+          }*/
+
+		// 20090622 add by yxr 增加组合查询支持 输入 年龄段
+		  if(document.getElementById('KS_CSRQ_BEG')==null || document.getElementById('JS_CSRQ_END')==null ){
+          		searchForM();
+          }else{
+	          KS_VALUE = document.getElementById('KS_CSRQ_BEG').value;
+	          JS_VALUE = document.getElementById('JS_CSRQ_END').value;
+
+              var tsfwbs=document.getElementById('KS_CSRQ_BEG').getAttribute("tsfwbs");
+              var must=document.getElementById('KS_CSRQ_BEG').getAttribute("must");
+
+
+	          if(KS_VALUE == "" && JS_VALUE == ""){
+	          	 document.getElementById("KS_CSRQ").value = "";
+	          	 document.getElementById("JS_CSRQ").value = "";
+	          	 searchForM();
+	          }else{
+	         	  if(KS_VALUE != ""){
+		         	if(validateTime('KS_CSRQ_BEG','0')){
+		         		document.getElementById("KS_CSRQ").value = validateTime('KS_CSRQ_BEG','0');
+		         	}else{
+		         		return ;
+		         	}
+
+	         	  }else{
+                    document.getElementById("KS_CSRQ").value="";
+                    if(must){
+                        alert("必输项不能为空");
+                        return false;
+                    }
+	         	  }
+	         	  if(JS_VALUE != ""){
+	         	    if(validateTime('JS_CSRQ_END','1')){
+		         		document.getElementById("JS_CSRQ").value = validateTime('JS_CSRQ_END','1');
+		         	}else{
+		         		return ;
+		         	}
+
+	         	  }else{
+                     document.getElementById("JS_CSRQ").value="";
+                     if(must){
+                        alert("必输项不能为空");
+                        return false;
+                    }
+	         	  }
+
+                  if(tsfwbs=='30'&&must){
+
+                      var flag=false;
+                      if(KS_VALUE.length>3||JS_VALUE.length>3){
+                         flag=true;
+                      }
+
+                      if(flag&&KS_VALUE.length!=JS_VALUE.length){
+                         alert("日期格式不一致,请重新输入");
+                         return false;
+                      }
+
+                      var between=parseInt(JS_VALUE)-parseInt(KS_VALUE);
+
+                      if(KS_VALUE.length==4){
+                         if(between>4){
+                             alert("时间范围超过五年，请重新输入！");
+                             return false;
+                         }
+                      }
+
+                      if(KS_VALUE.length==6){
+                         if(between>=500){
+                             alert("时间范围超过五年，请重新输入！");
+                             return false;
+                         }
+                      }
+
+                      if(KS_VALUE.length==8){
+                          if(between>=50000){
+                             alert("时间范围超过五年，请重新输入！");
+                             return false;
+                         }
+                      }
+
+                      if(KS_VALUE.length<4){
+                         if(between>4){
+                             alert("时间范围超过五年，请重新输入！");
+                             return false;
+                         }else if(between<0){
+                             alert("起始年龄不能大于结束年龄！");
+                             return false;
+                         }
+                      }
+                  }
+
+
+	         	  if(doSubmit()){
+				   	searchForM();
+				  }else{
+				  	return ;
+				  }
+	          }
+          }
+      }else{
+		  searchForS();
+	  }
+  }
+
+  //显示多条的显示结果（主服务组合查询，第一个Tab页）
+  function searchForM(){
+       clearPage();
+       var i = g_xTabPane.selectedIndex;
+       var up_logID = "";
+       if((i==0 && doQueryServices(i)))
+       {
+             processbar.style.display="";
+             document.frmPost.action = strAction+"?method=getRes&serviceid="+1191+"&up_logID="+up_logID;
+             if(doGlobalQueryServices(document.frmPost.action,0,0,0,10))
+             {
+                  g_xTabPane.setSelectedIndex(0);
+                  var xmlDom = createDOMDocument();
+                  xmlDom.loadXML(document.getElementById("resultXML").value);
+                  var list1 = xmlDom.selectSingleNode("//RESPONSE/ROWS/ROW/ErrorMsg");
+                  if(list1!=null){
+                      processbar.style.display="none";
+                      alert(list1.text);
+                      return;
+                  }
+                  var list = xmlDom.selectNodes("//RESPONSE/RESULT/RCN");
+                  for(var i=0;i<list.length;i++)
+                  {
+                       for(var j=0;j<list[i].childNodes.length;j++)
+                       {
+                           if(list[i].childNodes[j].nodeName=="SD")
+                           {
+                                up_logID =list[i].childNodes[j].text;
+                           }
+                       }
+                  }
+                  document.frmPost.queryAction = strAction+"?method=getRes&serviceid="+1191+"&up_logID="+up_logID;
+            }
+            processbar.style.display="none";
+        }
+        resetValueByPages([1]);
+    }
+    //非组合查询（第二个Tab页）
+    function searchForS(){
+         var i = g_xTabPane.selectedIndex;
+         clearPage();
+         if((i==0 && doQueryServices(i)))
+         {
+              processbar.style.display="";
+              document.frmPost.action = strAction+"?method=getResDetails";
+              if(doGlobalQueryServices(document.frmPost.action,0,0,0,10))
+              {
+                   var ua = navigator.userAgent.toLowerCase();
+                    var resultXML=document.frmPost.resultXML.value;
+                   var xmlDom = createDOMDocument();
+                   xmlDom.loadXML(document.frmPost.resultXML.value);
+                
+                   if(resultXML.indexOf('checkResult=66')!=-1){
+                   		processbar.style.display="none";
+                   		//alert("照片验证未通过 "+resultXML.substring(resultXML.indexOf("【"),resultXML.indexOf("】")+1));
+                   		if(tsfwbs=="15"){
+                   		   alert("特征提取失败");
+                   		}else{
+                   		    alert("上传相片质量校验不合格，请重新拍摄上传");
+                   		}
+                   		return;
+                   }
+                 
+
+                 
+                   var list = xmlDom.selectSingleNode("//RESPONSE/RESULT/ROW");
+                   //dom中没有找到指定节点时，返回值不能使用list==null进行判断，也不能使用typeof(list)=="undifine"
+                   //进行判断，需要使用list.text先将其转换为字符，然后再使用length属性进行判断
+                   var text1="";
+                   if (list!=null)
+                     text1=list.text;
+                   else
+                     text1 = "";
+                   if(text1.length==0){
+                         var list1 = xmlDom.selectSingleNode("//RESPONSE/ROWS/ROW/ErrorMsg");
+                         var text2="";
+                         if (list1!=null)
+                           text2=list1.text;
+                         else
+                           text2 ="";
+                         if(text2.length>0){
+                              processbar.style.display="none";
+                              alert(list1.text);
+                              return;
+                         }
+                         alert("服务请求失败，请重试！");
+                         processbar.style.display="none";
+                         return;
+                   }
+                   var htmlCode=list.text;
+                   setInnerHTML(details,htmlCode);
+             }
+             processbar.style.display="none";
+             
+             detail.style.display="block";
+             g_xTabPane.setSelectedIndex(1);
+        }
+        resetValueByPages([1]);
+    }
+
+    //显示组合查询的详细信息页面（第二个Tab页）
+    function showDetails(pk,val,bm,id,sd){
+        clearPage();
+        var flag = "1";
+        var url = strAction+"?method=getRela&PK="+pk+"&VAL="+val +"&BM="+bm+"&ID="+id+"&SD="+sd+"&FLAG="+flag;
+        var ua = navigator.userAgent.toLowerCase();
+        var xmlHttp2 = new ActiveXObject("Msxml2.XMLHTTP");
+        xmlHttp2.open("POST",url,false);
+        xmlHttp2.send();
+        var xmlDom = createDOMDocument();
+        xmlDom.loadXML(xmlHttp2.responseText);
+        var list = xmlDom.selectSingleNode("//RESPONSE/RESULT/ROW");
+        if(list==null){
+        var list1 = xmlDom.selectSingleNode("//RESPONSE/ROWS/ROW/ErrorMsg");
+               if(list1!=null){
+                     alert(list1.text);
+                     processbar.style.display="none";
+                     return;
+               }
+               alert("服务请求失败，请重试！");
+               processbar.style.display="none";
+               return;
+        }
+        detail.style.display="block";
+        details.style.display="block";
+        var htmlCode=list.text;
+        setInnerHTML(details,htmlCode);
+        processbar.style.display="none";
+        g_xTabPane.setSelectedIndex(1);
+    }
+
+    //显示关联信息详细内容（非固定页面，第三个Tab页）
+    function showRelation(pk,val,pkxm,valxm,bm,id,sd){
+         rela.style.display="none";
+         fix.style.display="none";
+         document.all.frame.src="";
+         relations.innerHTML = "";
+         reladetails.style.display="none";
+         relationsdetails.innerHTML = "";
+		 //alert(pk+","+val+","+pkxm+","+valxm+","+bm+","+id+","+sd);
+		 if(pkxm=="PKXM" && valxm=="VALXM"){
+		 var flag = "1";
+		     var url = strAction+"?method=getRela&PK="+pk+"&VAL="+val+"&BM="+bm+"&ID="+id+"&SD="+sd+"&FLAG="+flag;
+		 var ua = navigator.userAgent.toLowerCase();
+         var xmlHttp2 = new ActiveXObject("Msxml2.XMLHTTP");
+         xmlHttp2.open("POST",url,false);
+         xmlHttp2.send();
+		 }else{
+			//高活跃人群
+             //var url = strAction+"?method=getRela&PK="+pk+"&VAL="+val +"&PKXM="+pkxm+"&VALXM="+valxm+"&BM="+bm+"&ID="+id+"&SD="+sd;
+          var queryXML = "<INFO><PK>"+pk+"</PK><VAL>"+val+"</VAL><PKXM>"+pkxm+"</PKXM><VALXM>"+valxm+"</VALXM><BM>"+bm+"</BM><ID>"+id+"</ID><SD>"+sd+"</SD></INFO>";
+		 var ua = navigator.userAgent.toLowerCase();
+         var xmlHttp2 = new ActiveXObject("Msxml2.XMLHTTP");
+         xmlHttp2.open("POST",strAction+"?method=getRela",false);
+         xmlHttp2.send(queryXML);
+         }
+         var xmlDom = createDOMDocument();
+         xmlDom.loadXML(xmlHttp2.responseText);
+         var list = xmlDom.selectSingleNode("//RESPONSE/RESULT/ROW");
+         var htmlCode=list.text;
+         if(list==null || htmlCode ==""){
+              var list1 = xmlDom.selectSingleNode("//RESPONSE/ROWS/ROW/ErrorMsg");
+               if(list1!=null){
+                     alert(list1.text);
+                     processbar.style.display="none";
+                     return;
+               }
+               alert("服务请求失败，请重试！");
+               processbar.style.display="none";
+               return;
+        }
+        rela.style.display="block";
+        setInnerHTML(relations,htmlCode);
+        processbar.style.display="none";
+        g_xTabPane.setSelectedIndex(2);
+    }
+    //显示关联组合页面（第三个Tab页面）
+    function showRelaFix(pk,val,bm,id,sd){
+        reladetails.style.display="none";
+        relationsdetails.innerHTML = "";
+        rela.style.display="block";
+        relations.innerHTML = "";
+        document.all.frame.src="/nciic_self"+"/jsp/serv/services/rela.jsp?PK="+pk+"&VAL="+val +"&BM="+bm+"&ID="+id+"&SD="+sd;
+        fix.style.display="block";
+        processbar.style.display="none";
+        g_xTabPane.setSelectedIndex(2);
+    }
+
+    //显示固定的服务页面（第三个Tab页面）
+    function showFix(url,serviceid,pk,val,sd,mk){
+        reladetails.style.display="none";
+        relationsdetails.innerHTML = "";
+        rela.style.display="block";
+        relations.innerHTML = "";
+        document.all.frame.src="/nciic_self"+"/jsp/serv/services/"+url+"?pk='"+pk+"'&serviceid="+serviceid+"&val="+val+"&sd="+sd+"&mk="+mk;
+        fix.style.display="block";
+        processbar.style.display="none";
+        g_xTabPane.setSelectedIndex(2);
+    }
+
+    //显示组合关联信息详细内容（第四个Table页面）
+    function showRelationDetails(pk,val,bm,id,sd,ft){
+        var flag="1";
+        var url = strAction+"?method=getRela&PK="+pk+"&VAL="+val +"&BM="+bm+"&ID="+id+"&SD="+sd+"&FT="+ft+"&FLAG="+flag;
+        var ua = navigator.userAgent.toLowerCase();
+        var xmlHttp2 = new ActiveXObject("Msxml2.XMLHTTP");
+        xmlHttp2.open("POST",url,false);
+        xmlHttp2.send();
+        var xmlDom = createDOMDocument();
+        xmlDom.loadXML(xmlHttp2.responseText);
+        var list = xmlDom.selectSingleNode("//RESPONSE/RESULT/ROW");
+        var htmlCode=list.text;
+        if(list==null || htmlCode ==""){
+             var list1 = xmlDom.selectSingleNode("//RESPONSE/ROWS/ROW/ErrorMsg");
+             if(list1!=null){
+                   alert(list1.text);
+                   processbar.style.display="none";
+                   return;
+            }
+            alert("服务请求失败，请重试！");
+            processbar.style.display="none";
+            return;
+        }
+        reladetails.style.display="block";
+        setInnerHTML(relationsdetails,htmlCode);
+        processbar.style.display="none";
+        g_xTabPane.setSelectedIndex(3);
+    }
+
+    //获取页面焦点
+    function getFocus(){
+        var n = g_xTabPane.selectedIndex;
+	    if(n==0)
+		    document.all.cmdSearch.focus();
+    }
+
+    //获取前一控件
+    function getPreInput(obj){
+        var temp=obj;
+        var flag =false;
+        var tempback=obj;
+        var flagback =false;
+        var flagreturn=true;
+        while(!flag){
+            temp = temp.previousSibling;
+            try{
+                if(temp.bm!="undefined" && temp.bm!=null){
+                     flag=true;
+                }else if(temp.type=="checkbox"){
+                     temp.checked=false;
+                }
+            }catch (e){
+                flag=false;
+            }
+        }
+        while(!flagback){
+           tempback = tempback.nextSibling;
+           if (tempback != null){
+               try{
+                   if(flagreturn)
+                   flagreturn=false;
+                   else if(tempback.type=="checkbox"){
+                       tempback.checked=false;
+                       flagreturn=true;
+                   }else
+                       flagback = true;
+              }catch (e){
+                  flag=false;
+              }
+          }else
+               break;
+       }
+
+       if(temp.operation==obj.operation){
+           temp.operation="=";
+       }else{
+            temp.operation=obj.operation;
+       }
+
+    }
+
+    //时间类型中使用 2009-2-16
+    function operationChange(obj){
+
+       var temp=obj;
+        var flag =false;
+        var tempback=obj;
+        var flagback =false;
+        var flagreturn=true;
+        while(!flag){
+            temp = temp.previousSibling;
+            try{
+                if(temp.bm!="undefined" && temp.bm!=null){
+                     flag=true;
+                }else if(temp.type=="checkbox"){
+                     temp.checked=false;
+                }
+            }catch (e){
+                flag=false;
+            }
+        }
+        while(!flagback){
+           tempback = tempback.nextSibling;
+           if (tempback != null){
+               try{
+                   if(flagreturn)
+                   flagreturn=false;
+                   else if(tempback.type=="checkbox"){
+                       tempback.checked=false;
+                       flagreturn=true;
+                   }else
+                       flagback = true;
+              }catch (e){
+                  flag=false;
+              }
+          }else
+               break;
+       }
+        if(temp.bm!="undefined" && temp.bm!=null){
+
+            if(temp.fieldFormat=="22"){//时间类型
+                if(obj.checked){
+                  if(obj.value.toLowerCase()=='y'){//年
+                      temp.dateType="yyyy";
+                  }
+                  if(obj.value.toLowerCase()=='ym'){//年月
+                      temp.dateType="yyyymm";
+                  }
+                  temp.operation="left_like";
+                }else{
+                   temp.dateType="";
+                   temp.operation="=";
+                }
+            }
+        }
+    }
+    //页面打印功能 2009-2-26
+    function printTable(id){
+      var mStr;
+      mStr=window.document.body.innerHTML;
+      var mWindow=window;
+      window.document.body.innerHTML=id.innerHTML;
+      mWindow.print();
+      window.document.body.innerHTML=mStr;
+    }
+
+    ///页面打印功能 2009-2-26
+    function printHTML()
+    {
+        var i=g_xTabPane.selectedIndex;
+        var id;
+        if(i=="1"){
+            id="details";
+        }else if(i=="3"){
+            id="relationsdetails";
+        }else if(i=="2"){
+           if(document.getElementById("relations").innerHTML!=""){
+               id="relations";
+           }else{
+               id="fix";
+           }
+        }
+        var oDiv      = document.getElementById(id);
+        var content = oDiv.innerHTML;
+        content=content.replace(new RegExp("<TABLE","g"),"<TABLE border=1");
+        content=content.replace(new RegExp("cellSpacing=1","g"),"cellSpacing=0");
+        if(content.lastIndexOf("<INPUT type=hidden name=printFlag>")!=-1){
+          content=content.replace(new RegExp("<INPUT type=hidden name=printFlag>","g"),"<INPUT type=hidden name=printFlag><xmp></xmp>");
+            content=content.substr(0,content.lastIndexOf("<xmp></xmp>"))+content.substr(content.lastIndexOf("<xmp></xmp>")+11);
+        }
+        content=content.replace("border=1","border=0");
+        content="<title>打印预览</title>"+content;
+
+
+       var head="<script language='javascript'>var HKEY_RootPath='HKEY_CURRENT_USER\\\\Software\\\\Microsoft\\\\Internet Explorer\\\\PageSetup\\\\';function pageSetup_del(){try{var WSc=new ActiveXObject('WScript.Shell');HKEY_Key='header';WSc.RegWrite(HKEY_RootPath+HKEY_Key,'');HKEY_Key='footer';WSc.RegWrite(HKEY_RootPath+HKEY_Key,'');}catch(e){}window.print();}</script>";
+       var pageDiv="<style type='text/css'> hr {  margin-top: -2px} td {  font-family: 'Tahoma'; font-size: 12px} xmp {page-break-before: always}</style>";
+
+
+//        var ss="height="+screen.height*0.9+", width="+screen.width*0.8;
+//        var hWin=window.open ("","",ss+",toolbar=no,scrollbars=yes,");
+        var hWin=window.open ("","","toolbar=no,scrollbars=yes,menubar=yes,statusbar=no");
+         content=head+"\n"+pageDiv+"\n"+content;
+        hWin.document.write(content);
+   }
+
+   //照片比对获取人像照片showModalDialog
+   function getImage(){   
+    
+       if(tsfwbs=="10"||tsfwbs=="15"){
+       		img_s.src="../../../images/blank.jpg";
+       }else if(tsfwbs=="14"){
+      
+       		img_s.src="../../../images/id.jpg";
+       }
+       
+       if(tsfwbs=="10"||tsfwbs=="14"||tsfwbs=="15"){
+           var pic=window.showModalDialog('image.jsp',"",'font-family:Verdana; font-size:12; help:no;  status:yes; scrollbar:yes; unadorned:no; dialogWidth:75em; dialogHeight:25em');
+           img_s.src="/nciic_self/serv/ServicesPhotoAction.do?method=getImage"
+       }else if(tsfwbs=="11"){
+           getImage2();
+       }
+
+   }
+
+
+   function getImage2(){
+       var fileName;
+       var id=document.getElementById("GMSFHM").value;
+       var name=document.getElementById("XM").value;
+       if(id==""||name==""){
+           alert("请先填写身份证号码和姓名!");
+           return;
+       }
+       fileName=id+"_"+name+".jpg";
+
+       var img_s=document.getElementById("img_s");
+       img_s.src="../../../images/blank.jpg";
+       var pic=window.showModalDialog('image2.jsp',fileName,'font-family:Verdana; font-size:12; help:no;  status:yes; scrollbar:yes; unadorned:no; dialogWidth:75em; dialogHeight:25em');
+       img_s.src="/nciic_self/serv/ServicesPhotoAction.do?method=getImage"
+
+   }
+
+
+    //添加条件
+    function addRow() {
+        var ua = navigator.userAgent.toLowerCase();
+        var cell1_html = '';
+        var tbl = document.getElementById("add");
+        var tables = tbl.getElementsByTagName("TABLE");
+        if(tables==null || tables.length <1)
+              return;
+        if(tables.length==20){
+              alert("一次提交条件不能超过10条！");
+              return;
+        }
+        var row;
+        var cell;
+        row = tbl.insertRow(tbl.rows.length);
+        cell = tbl.rows.item(tbl.rows.length - 1).insertCell(0);
+        var rowIdx = tbl.rows.length -1 ;
+        var tempInner = tables[0].innerHTML;
+        setInnerHTML(cell,"<TR><TD><TABLE width=\"98%\" cellpadding=\"0\" cellspacing=\"0\" class=\"editTabTitle\">"+tempInner+"</TABLE></TD></TR>");
+        var list = cell.getElementsByTagName("INPUT");
+        for(i=0;i<list.length;i++){
+            if(list[i].type=="checkbox" || list[i].type=="radio"){
+                list[i].checked=false;
+            }else if(list[i].kind=="dic"){
+                list[i].code="";
+                list[i].value="";
+            }else if(list[i].kind=="date"){
+                list[i].value="";
+            }
+            else{
+                list[i].value="";
+            }
+        }
+        tbl.rows.item(tbl.rows.length-1).cells.item(0).children.item(0).text = rowIdx;
+    }
+    //删除条件
+    function deleteRow() {
+        var tbl = document.getElementById("add");
+        var idx = document.getElementsByName("idx");
+        try{
+        for(i=0;i<idx.length,idx.length>1;i++){
+              if(idx[i].checked==true){
+                   tbl.deleteRow(i);
+                   idx = document.getElementsByName("idx");
+                   if(idx.length==1){
+                      return;
+                   }
+                   i=0;
+              }
+        }
+        }catch  (e){
+        }
+    }
+
+    function setInnerHTML(el, htmlCode) {
+        var ua = navigator.userAgent.toLowerCase();
+        if (ua.indexOf('msie') >= 0 && ua.indexOf('opera') < 0) {
+            htmlCode = '<div style="display:none">for IE</div>' + htmlCode;
+            htmlCode = htmlCode.replace(/<script([^>]*)>/gi, '<script$1 defer="true">');
+            el.innerHTML = htmlCode;
+            el.removeChild(el.firstChild);
+        } else {
+            var el_next = el.nextSibling;
+            var el_parent = el.parentNode;
+            el_parent.removeChild(el);
+            el.innerHTML = htmlCode;
+            if (el_next) {
+                el_parent.insertBefore(el, el_next)
+            } else {
+                el_parent.appendChild(el);
+            }
+        }
+    }
+
+    function finishPhotoLoading(){
+        photoprocessbar.style.display="none";
+    }
+
+    function displayPhotoLoading(){
+        <!--photoprocessbar.style.display="";-->
+        photoprocessbar.style.display="none";
+    }
+
+    function clearPage(){
+        details.innerHTML="";
+        detail.style.display="none";
+
+        fix.style.display="none";
+        rela.style.display="none";
+        relations.innerHTML = "";
+
+        reladetails.style.display="none";
+        relationsdetails.innerHTML = "";
+        document.all.frame.src="";
+        finishPhotoLoading();
+    }
+
+    function checkPhoto(obj){
+        if(obj.value.length>0){
+             var af="jpg,gif";
+             if(eval("with(obj.value)if(!/"+af.split(",").join("|")+"/ig.test(substring(lastIndexOf('.')+1,length)))1;")){alert("相片类型只能是:\n"+af);obj.createTextRange().execCommand('delete')};
+        }
+    }
+</SCRIPT>
+</head>
+<body leftmargin="10" topmargin="0">
+	<div id="processbar" class="loading" style="display:none" align="center">正在处理请求，请稍候...</div>
+    <div id="photoprocessbar" class="loading" style="display:none" align="center">正在装载相片，请稍候...</div>
+<!-- 查询条件定义区域-->
+	<div class="tab-pane" width="100%" id="tabPane" style="display:none" selectedIndex="0">
+		<div class="tab-page"><span class="tab" title="精确多项核查" >精确多项核查</span>
+  			<div class="tab-layout">
+            <TABLE width="98%" id="add">
+               <TR>
+                   <TD>
+        		        <TABLE width="98%" cellpadding="0" cellspacing="0" class="editTabTitle">
+                          <TR>
+
+    
+                             <TD width="2%" align="center" class="label">
+                                <input id="idx" name="idx" queryignore="true" type="checkbox" disable>
+                            <TD>
+    
+                            <TD class="editTdTitle">
+                              <TABLE class="editTabTitle" width="100%" cellpadding="2" cellspacing="1" name="insert">
+	<TR><TD width="4%" align="center" rowspan="1" class="editTdTitle"  ><p>基本<br>条件<br></P></TD><TD width="10%" class="label">公民身份号码</TD><TD width="40%"  class ="editLabel" ><INPUT style="width:40%" type = "text" class = "Edit" showInput ="false" id="GMSFHM" bm = "JCXX_CZRK" fwfs = "BA" tsfwbs = "" fwid = "1191" name = "GMSFHM" fieldFormat = "1"  fieldname = "GMSFHM"  must = "true" maxlength = "18" kind = "idcard_checklength" ></TD><TD width="10%" class="label">姓名</TD><TD width="40%"  class ="editLabel" ><INPUT style="font-family: 方正宋体-人口信息;width:40%" type="text"  class="Edit" kind="text"  showInput="false" id="XM" bm = "JCXX_CZRK" fwfs = "BA" tsfwbs = "" fwid = "1191" name = "XM" fieldFormat = "3"  fieldname = "XM"  must = "true" maxlength = "30" ></TD></TR>
+
+                              </TABLE>
+                             </TD>
+                          </TR>
+                        </TABLE>
+                    </TD>
+                </TR>
+             </TABLE>
+        
+        
+        <INPUT style="display:none;" type="text" class="Edit" kind="text" showInput="false" id="none11" name="none11" must = "false">
+     		</div>
+     	</div>
+    	<div class="tab-page"><span class="tab" title="核查结果" style="display:none" id="detail">核查结果</span>
+    		<div class="tab-layout" id="details">
+    		</div>
+    	</div>
+
+   		<div class="tab-page" ><span class="tab" title="关联信息" style="display:none" id="rela">关联信息</span>
+            <div class="tab-layout" id="fix" style="display:none">
+                <iframe id="frame" name="frame" align="middle" height="100%"  frameborder="0"  width="100%" id="aa" src="" name="aa"></iframe>
+            </div>
+            <div class="tab-layout" id="relations">
+            </div>
+    	</div>
+        <div class="tab-page" ><span class="tab" title="信息详情" style="display:none" id="reladetails">信息详情</span>
+            <div class="tab-layout" id="relationsdetails">
+            </div>
+    	</div>
+     </div>
+ <div align="center">
+ 	<FORM name="frmPost" method="post" style="display:none" target="_blank">
+		 <!--系统保留定义区域-->
+         <input type="hidden" name="queryXML">
+         <input type="hidden" name="txtXML">
+         <input type="hidden" name="txtFilter">
+         <input type="hidden" name="resultXML">
+         <!--传递行数据用的隐藏域-->
+         <input type="hidden" name="rowData">
+		 <!--按钮定义区域-->
+         <INPUT type="button" name="cmdSearch" id="cmdSearch" class="TabButton" value="#Q提  交" onclick="doSearch(03);">
+         <INPUT type="reset"  name="cmdReset"  id="cmdReset"  class="TabButton" value="#R重  置" onclick="doReset();">
+         <INPUT type="button"  name="cmdPrint"  id="cmdPrint"  class="TabButton" value="#P打印预览" onclick="printHTML()">
+ 	</FORM>
+</div>
+</body>
+</html>

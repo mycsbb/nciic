@@ -1,0 +1,434 @@
+<html>
+<head>
+<title>系统公告</title>
+<meta http-equiv="Content-Type" content="text/html; charset=GBK">
+
+<style type="text/css" > 
+   .noticetd{
+      font-size:10.5pt;
+      color:#000088;
+   }
+</style>
+<link type="text/css" rel="stylesheet" href="/nciic_self/css/task.css">
+<script language="javascript" src="/nciic_self/js/commonjs/TimePicker.js"></script>
+<script language="javascript">
+  var strAction = "/nciic_self/notice/NoticeAction.do";
+  var queryHttp = null;
+  var xmlHttp = null;
+  var stateType = true;
+  var account="zjhjzjdx52878";
+  var fieldValuePrice=null;
+  function bar_MsOver() {
+	var obj = event.srcElement;
+	if (obj.tagName == "TD") {
+		obj.className = "Title_active";
+	}
+  }
+  
+  function bar_MsOut() {
+	var obj = event.srcElement;
+	if (obj.tagName == "TD") {
+		obj.className = "Title";
+	}
+  }
+  
+  function list_MsOver()
+  {
+	var obj = event.srcElement;
+	while (obj.tagName != "TR") {
+		obj = obj.parentElement;
+	}
+	obj.style.background = "wheat";
+  }
+  
+  function list_MsOut()
+  {
+	var obj = event.srcElement;
+	while (obj.tagName != "TR") {
+		obj = obj.parentElement;
+	}
+	obj.style.background = "transparent";
+  }
+  
+  function getRowCondition(operation,fieldName,fieldValue,fieldType,fieldFormat)
+  {
+     var tmpCondition ;
+     tmpCondition = "<CONDITION><LOGIC> and </LOGIC>"
+                  + "<FIELDNAME >" + fieldName+"</FIELDNAME>";
+     if (operation)
+	 	 tmpCondition += "<OPERATION>" + operation +"</OPERATION>";
+	 else
+	     tmpCondition += "<OPERATION>=</OPERATION>";
+	 
+	 if (fieldValue)
+	 	 tmpCondition += "<VALUE>"+ fieldValue +"</VALUE>";
+	 else
+	     tmpCondition += "<VALUE/>";
+	 
+	 if (fieldType)
+	     tmpCondition += "<FIELDTYPE>" + fieldType + "</FIELDTYPE>";
+	 else
+	     tmpCondition += "<FIELDTYPE/>";
+	     
+	 if (fieldFormat)
+	     tmpCondition += "<FIELDFORMAT>" + fieldFormat + "</FIELDFORMAT>";
+	 else
+	     tmpCondition += "<FIELDFORMAT/>"
+	 tmpCondition += "</CONDITION>";
+	 
+	 return tmpCondition;
+  }
+  
+  function verifyDate(strDate)
+  {
+    if (strDate.length != 8)
+      return false;
+    var iYear = strDate.substr(0,4);
+    var iMonth = strDate.substr(4,2);
+    var iDay = strDate.substr(6,2);
+    try {
+        iYear = parseInt(iYear);
+	    iMonth =  parseInt(iMonth,10) -1;
+	    iDay =  parseInt(iDay);
+	    var iTmpDate = new Date(iYear,iMonth,iDay);
+//	    alert(iTmpDate.toString())
+	    if ((iTmpDate.getFullYear() == iYear)
+	        && (iTmpDate.getMonth() == iMonth) 
+	        && (iTmpDate.getDate() == iDay))
+	        return true;
+	    else
+	        return false;
+    }
+    catch (e) {
+       return false;
+    }
+  }
+  function doSeekNotice(){
+    priceRemind();//预付费客户，有效账户：精确到用户级别的账户，进行余额提醒
+    var strSendTime = document.all.sendtime.value;
+    if(strSendTime)
+	{
+	    if (!verifyDate(strSendTime)){
+		   alert('输入的日期有错误!,正确格式YYYYMMDD');
+		   return;
+		}
+	}
+	var queryXML = "<QUERYCONDITION><CONDITIONS>";
+	
+	var tmpCondition;
+	
+	if (document.all.noticetitle.value){
+	   tmpCondition = getRowCondition("like","SUBJECT",document.all.noticetitle.value + "%");
+	   queryXML += tmpCondition;
+	}
+	
+	if (strSendTime){
+// 	   tmpCondition = getRowCondition("&gt;=","SENDTIME",strSendTime,"date","YYYYMMDD");
+ 	   tmpCondition = getRowCondition("=","SENDTIME",strSendTime,"date","YYYYMMDD");
+       queryXML += tmpCondition;
+ 	}
+ 	
+	tmpCondition = getRowCondition("=","STATUS","1");
+    queryXML += tmpCondition;
+ 	             
+ 	queryXML += "</CONDITIONS>"
+ 	         +  "<ORDERS><ORDER type='desc'>SENDTIME</ORDER></ORDERS>"
+ 	         +  "</QUERYCONDITION>";
+	
+//	alert(queryXML)
+	try{
+	    if (!queryHttp)
+		   queryHttp = new ActiveXObject("Microsoft.XMLHTTP");
+		
+		queryHttp.onreadystatechange = getReady;
+		queryHttp.open("POST",strAction+"?method=queryNoticeList",true)
+		queryHttp.send(queryXML);
+		
+	}
+	catch(e){
+		queryHttp = null;
+		alert("查询失败");
+	}
+  }
+  
+  function getReady(){
+	if(queryHttp.readyState==4){
+		if(queryHttp.status==200)
+		{
+//			objXml.loadXML(queryHttp.responseText);
+//			drawClient();
+            drawTable(queryHttp.responseText);
+//-----EDIT BY SUN HAO
+            var objXML = new ActiveXObject("MSXML2.DOMDocument");
+            objXML.loadXML(queryHttp.responseText);
+            var rowNodeList = objXML.selectNodes("/RESPONSE/RESULT/ROW");
+            if(rowNodeList.length!=0&&stateType==null)
+            {
+               var rowNode = rowNodeList.item(0);
+               var fieldNodeList = rowNode.childNodes;
+               var fieldNode=fieldNodeList.item(0);
+               var fieldValue = fieldNode.text;
+               showNoticeInfo(fieldValue);
+               
+            }
+            
+			queryHttp = null;
+		}
+		else
+		{
+			queryHttp = null;
+			alert("查询失败");
+		}
+	}
+  }
+  
+//  function showNoticeInfo(strNoticeID,strUserName,strSubject,strContent,strSendTime){
+  function showNoticeInfo(strNoticeID){
+     
+     var strUrl="noticedetail.jsp"
+     var res=window.showModalDialog(strUrl,strNoticeID,
+             'help:no;dialogWidth:43.5em;dialogHeight:24em');
+     
+//     alert(strNoticeID);
+/*     
+     var strTable ;
+     strTable = "<table width='100%' border='1'>"
+              + "<tr>"
+              + "<td>发公告人姓名</td>"
+              + "<td>" + strUserName + "</td>"
+              + "</tr>"
+              + "<tr>"
+              + "<td>公告标题</td>"
+              + "<td>" + strSubject + "</td>"
+              + "</tr>"
+              + "<tr>"
+              + "<td>公告内容</td>"
+              + "<td>" + strContent.replace(/\n/g, "<br>") + "</td>"
+              + "</tr>"
+              + "<tr>"
+              + "<td>发送时间</td>"
+              + "<td>" + strSendTime + "</td>"
+              + "</tr>"
+              + "<tr>"
+              + "</tr>"
+              + "</table>";
+      document.all.objTaskList.innerHTML = strTable;
+  */
+  }
+  
+  function drawTable(strXML){
+    
+//    alert(strXML)
+//    var objXML = createDOMDocument();
+    var objXML = new ActiveXObject("MSXML2.DOMDocument");
+    objXML.loadXML(strXML);
+    var rowNodeList = objXML.selectNodes("/RESPONSE/RESULT/ROW");
+    var objTable = document.all.datatable;
+    
+    var rows = objTable.rows.length;
+//    alert("rows="+rows)
+    for (i = 0 ; i < rows; i++){
+       objTable.rows[0].removeNode(true);
+    }
+    
+//    alert("rows="+rowNodeList.length);
+    for(i = 0; i < rowNodeList.length; i++)
+    {
+         var rowNode = rowNodeList.item(i);
+         var fieldNodeList = rowNode.childNodes;
+         
+         var objRow = objTable.insertRow();
+         objRow.onmouseover = new Function("list_MsOver()");
+         objRow.onmouseout = new Function("list_MsOut()");
+         var strNoticeID = "";
+         var strUserName = "";
+         var strSubject = "";
+         var strContent = "";
+         var strSendTime = "";
+         
+//         alert("feilds="+fieldNodeList.length);
+         for(j = 0 ; j < fieldNodeList.length; j++)
+         {
+         
+            var fieldNode = fieldNodeList.item(j);
+            var strTempXML = fieldNode.xml;
+            var fieldName = fieldNode.nodeName;
+            var fieldValue = fieldNode.text;
+		
+            if (fieldName == "NOTICEID"){
+/*            
+               var objCell = objRow.insertCell();
+               objCell.className='Title';
+               objCell.align="center";
+               objCell.width="80";
+               objCell.innerHTML = "<span class='Text'>" + fieldValue+ "</span>";
+               objCell = objRow.insertCell();
+               objCell.className='Separat';
+               objCell.width="2";
+               objCell.innerHTML="|";
+*/               
+               strNoticeID = fieldValue;
+            }
+            else if (fieldName == "FROMUSERNAME"){
+               var objCell = objRow.insertCell();
+               objCell.className='Title';
+               objCell.align="center";
+               objCell.width="120";
+               objCell.innerHTML = "<span class='Text'>" + fieldValue+ "</span>";
+               objCell = objRow.insertCell();
+               objCell.className='Separat';
+               objCell.width="2";
+               objCell.innerHTML="|";
+               strUserName = fieldValue;
+            }
+            else if (fieldName == "SUBJECT"){
+               var objCell = objRow.insertCell();
+               objCell.className='Title';
+               objCell.align="center";
+               objCell.width="200";
+               objCell.innerHTML = "<span class='Text'>" + fieldValue+ "</span>";
+               objCell = objRow.insertCell();
+               objCell.className='Separat';
+               objCell.width="2";
+               objCell.innerHTML="|";
+               strSubject = fieldValue;
+            }
+            else if (fieldName == "KIND"){
+/*            
+               var objCell = objRow.insertCell();
+               objCell.className='Title';
+               objCell.align="center";
+               objCell.width="80";
+               objCell.innerHTML = "<span class='Text'>" + fieldValue+ "</span>";
+               objCell = objRow.insertCell();
+               objCell.className='Separat';
+               objCell.width="2";
+               objCell.innerHTML="|";
+*/               
+            }
+            else if (fieldName == "SENDTIME"){
+              var objCell = objRow.insertCell();
+               objCell.className='Title';
+               objCell.align="center";
+               objCell.width="120";
+               objCell.innerHTML = "<span class='Text'>" + fieldNode.getAttribute("sv")+ "</span>";
+               objCell = objRow.insertCell();
+               objCell.className='Separat';
+               objCell.width="2";
+               objCell.innerHTML="|";
+               strSendTime = fieldValue;
+            }    
+/*            else if (fieldName == "STATUS"){
+               var objCell = objRow.insertCell();
+               objCell.className='Title';
+               objCell.align="center";
+               objCell.width="80";
+               objCell.innerHTML = "<span class='Text'>" + fieldNode.getAttribute("sv")+ "</span>";
+               objCell = objRow.insertCell();
+               objCell.className='Separat';
+               objCell.width="2";
+               objCell.innerHTML="|";
+            }
+*/            
+//            else if ( fieldName == 'CONTENT'){
+//               strContent = fieldValue
+//            }
+            
+         }
+/*         
+         alert(strTempText)
+         alert(strTempXML);
+         objRow.onclick = new Function("showNoticeInfo('" + strNoticeID + "','"
+                                       + strUserName + "','" + strSubject.replace("'","''") + "','"
+                                       + strContent.replace("'","''") + "','" + strSendTime + "')");  
+*/                                        
+        objRow.onclick = new Function("showNoticeInfo('" + strNoticeID + "')");
+    }
+    objXML = null;
+  }
+    //预付费客户，有效账户：精确到用户级别的账户，进行余额提醒
+    function priceRemind(){
+      var XML = "<INFO>"+account+ "</INFO>";
+	      if (!xmlHttp){
+		     xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+		  }
+		  xmlHttp.onreadystatechange = HandleStateChange;
+		  xmlHttp.open("POST",strAction+"?method=queryPriceRemindList",true)
+		  xmlHttp.send(XML);
+  }
+  function HandleStateChange(){
+	  	if(xmlHttp.readyState==4){
+			if(xmlHttp.status==200)
+			{
+				//alert("123abc");
+				var objXML = new ActiveXObject("MSXML2.DOMDocument");
+	            objXML.loadXML(xmlHttp.responseText);
+	            var rowNodeList = objXML.selectNodes("/RESPONSE/RESULT/ROW");
+	            if(rowNodeList.length!=0)
+	            {
+	               var rowNode = rowNodeList.item(0);
+	               var fieldNodeList = rowNode.childNodes;
+	               var fieldNode=fieldNodeList.item(0);
+	               fieldValuePrice = fieldNode.text;
+				   if(fieldValuePrice!=null && fieldValuePrice!=""){
+				   		alert(fieldValuePrice);
+				   }
+	            }
+			}
+	    }
+  }  
+</script>
+</head>
+<body onload="doSeekNotice()">
+<div class="takToday">
+   <table width="95%" border="0">
+   <tr>
+      <td class="noticetd">
+         <img src="/nciic_self/images/default/task.gif" WIDTH="24" HEIGHT="25" align="left">
+      </td>
+      <td class="noticetd">
+         公告标题：<input type="text" class="Text" id="noticetitle" maxlength="60" style="width:260">&nbsp;&nbsp;
+         发送时间：<input type="text" class="Text" id="sendtime" maxlength="8" 
+                       kind="date" dateformat="YYYYMMDD">
+                <img src="/nciic_self/images/default/ttt.gif" 
+                     width="14" height="14" onclick="riliShowDate('sendtime')">&nbsp;&nbsp;
+        <input type="button" onclick="doSeekNotice()" value="检索">
+      </td>
+   </tr>
+   </table>
+</div>
+<div class="takBar">
+   <table cellpadding="0" cellspacing="0" width="95%" border="0">
+		<tr>
+<!-- 			<td align="center" width="80" class="Title">公告序号</td>
+			<td width="2" class="Separat">|</td>
+			<td align="center" width="120" noWRAP class="Title">发公告人姓名</td>
+			<td width="2" class="Separat">|</td>
+			<td align="center" width="200" class="Title" noWRAP>公告标题</td>
+			<td width="2" class="Separat">|</td>
+			<td align="center" width="80" class="Title" noWRAP>公告类型</td>
+			<td width="2" class="Separat">|</td>
+			<td width="120" name="btnSort" class="Title" style="cursor:hand" align="center" 
+			    onmouseover="bar_MsOver()" onmouseout="bar_MsOut()" onclick="doSort()" 
+			    order="SENDTIME"  noWRAP>发送时间<span class="Sort_active" onclick="doSort()">6</span></td>
+			<td width="2" class="Separat">|</td>
+			<td width="80" class="Title" noWRAP>公告状态</td>
+			<td width="2" class="Separat">|</td>
+-->			
+            <td align="center" width="200" class="Title" noWRAP>公告标题</td>
+			<td width="2" class="Separat">|</td>
+			<td align="center" width="120" noWRAP class="Title">发布人</td>
+			<td width="2" class="Separat">|</td>
+			<td width="120" name="btnSort" class="Title" noWRAP>发布时间</td>
+			<td width="2" class="Separat">|</td>
+		</tr>
+	</table>
+</div>
+<div class="taskdiv">
+<div class="takList">
+	<table cellpadding="0" cellspacing="0" width="100%" id="datatable">
+	</table>
+</div>
+</div>
+</body>
+</html>
