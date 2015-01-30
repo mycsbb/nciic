@@ -1,0 +1,105 @@
+-------------------入口----------------
+请求头：
+
+请求	GET /nciic_self/ HTTP/1.1
+Accept	text/html, application/xhtml+xml, */*
+Accept-Encoding	gzip, deflate
+DNT	1
+Cookie	crmLoginCookie=1; loginStyle=BlueTemplate; loginID=zjhjzjdx52878; loginPW=N11111; loginIDtmp=zjhjzjdx52878
+Host	web.nciic.org.cn
+Connection	Keep-Alive
+Cache-Control	no-cache
+Accept-Language	zh-CN
+User-Agent	Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko
+
+响应头：
+
+响应	HTTP/1.1 200 OK
+Set-Cookie	fAvfGpbE26=UWYcu50gCj6S;path=/
+Cache-Control	no-cache
+Cache-Control	no-cache="set-cookie"
+Date	Thu, 29 Jan 2015 03:27:52 GMT
+Pragma	No-cache
+Content-Length	6308
+Content-Type	text/html; charset=GBK
+Expires	Thu, 01 Jan 1970 00:00:00 GMT
+Set-Cookie	JSESSIONID=10QBJJyYqnlYJwc91mfPsvQGbB1LRKDT0Ngws5fTTvLPh31JtmCv!-837127919; path=/
+X-Powered-By	Servlet/2.5 JSP/2.1
+
+-----------------认证-------------------
+
+请求头：
+
+请求	POST /nciic_self/login.do HTTP/1.1
+Accept	text/html, application/xhtml+xml, */*
+Referer	https://web.nciic.org.cn/nciic_self/
+Accept-Language	zh-CN
+User-Agent	Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko
+Content-Type	application/x-www-form-urlencoded
+Accept-Encoding	gzip, deflate
+Host	web.nciic.org.cn
+Content-Length	1349
+DNT	1
+Connection	Keep-Alive
+Cache-Control	no-cache
+Cookie	crmLoginCookie=1; loginStyle=BlueTemplate; loginID=zjhjzjdx52878; loginPW=N11111; loginIDtmp=zjhjzjdx52878; fAvfGpbE26=UWYcu50gCj6S; JSESSIONID=10QBJJyYqnlYJwc91mfPsvQGbB1LRKDT0Ngws5fTTvLPh31JtmCv!-837127919
+
+请求正文：
+method=crmlogin&username=zjhjzjdx52878&password=&verifyCode=&loginStyle=BlueTemplate&signed_data=MIIDcAYJKoZIhvcNAQcCoIIDYTCCA10CAQExCzAJBgUrDgMCGgUAMAsGCSqGSIb3DQEHAaCCAmkwggJlMIIBzqADAgECAggmjmsYt8TRHzANBgkqhkiG9w0BAQUFADAfMQswCQYDVQQGEwJDTjEQMA4GA1UEAxMHTkNJSUNDQTAeFw0xNTAxMTQwODEzNDdaFw0yMDAxMTMwODEzNDdaMHoxCzAJBgNVBAYTAkNOMQswCQYDVQQIDAJCSjELMAkGA1UEBwwCQkoxCzAJBgNVBAoMAkdBMQ4wDAYDVQQLDAVOQ0lJQzEcMBoGA1UEAwwT6K%2BB55uR5Lya56i95p%2Bl5bGAMTEWMBQGA1UEAwwNempoanpqZHg1Mjg3ODCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAzpyWmHgSDQ42F6Yjp3NMoIrVB9FMEozFAzXr7kYSb%2FTHimkbKjD3e6Q6XUg0gXh5Rzm%2Fgh3kYCgqTfqFxF094Hwy4rQuV8AfwWUFUKd%2FfP72fwYlXJLmM2L436LBxsGi1hd3gcMhrnXt58lezLl2Gmx2AM5nWGeDE9et08Or0uECAwEAAaNPME0wHwYDVR0jBBgwFoAUWr3dkQJ5CBaXVtEZKKjRk884jKwwCwYDVR0PBAQDAgTwMB0GA1UdDgQWBBQZR1Xz105G3jkfgAZVeid%2BR7fjJTANBgkqhkiG9w0BAQUFAAOBgQAYiQE8E6syl6D3MHfPwEbHmt97AkNs6V6%2Bpugvd8v5lQ2rnEXbiYZ20I3xbUJKOXRcQl1c9sCXvAWa7C3utX8dz75E7kPtTuTTySKvZxI6fnjMKtGwM78xtGo8mKqreRxafzu9mhYZxAG1iarPZ2KlUyzEd6%2BGs3NXe9dEQiMPHzGB0DCBzQIBATArMB8xCzAJBgNVBAYTAkNOMRAwDgYDVQQDEwdOQ0lJQ0NBAggmjmsYt8TRHzAJBgUrDgMCGgUAMA0GCSqGSIb3DQEBAQUABIGAWpk5RfIWSPGE62G%2FiVR0fbQpUnu2flRlEnDy3bZAH%2Fy5a3p020xnkM5L0UD1MJDswgZv0wtGdmL9W1orfkSOb6zCbZ4xGwKhJKvN7BXBKvsNan5kM7BEJuoRdDBVJKmLpV4t2Md2erjvnDY27aQ4caJW9As74ctpYpxa78gY1bQ%3D&original_jsp=rinkkq&tempType=1&original=rinkkq%2F
+
+响应头：
+
+响应	HTTP/1.1 200 OK
+Cache-Control	no-cache="set-cookie"
+Date	Thu, 29 Jan 2015 03:30:09 GMT
+Content-Length	879
+Content-Type	text/html;charset=GBK
+Set-Cookie	crmLoginCookie=1; expires=Friday, 13-Feb-2015 08:30:09 GMT; path=/
+Set-Cookie	loginStyle=BlueTemplate; expires=Friday, 13-Feb-2015 08:30:09 GMT; path=/
+Set-Cookie	loginID=zjhjzjdx52878; expires=Friday, 13-Feb-2015 08:30:09 GMT; path=/
+Set-Cookie	loginPW=N11111; expires=Friday, 13-Feb-2015 08:30:09 GMT; path=/
+Set-Cookie	loginIDtmp=zjhjzjdx52878; expires=Thursday, 29-Jan-2015 11:30:09 GMT; path=/
+X-Powered-By	Servlet/2.5 JSP/2.1
+
+----------查询阶段-------------
+
+services.jsp
+请求头
+请求	GET /nciic_self/jsp/serv/services/services.jsp?servicesid=1191 HTTP/1.1
+Accept	text/html, application/xhtml+xml, */*
+Referer	https://web.nciic.org.cn/nciic_self/jsp/framework/blueTemplate/MainPage.jsp
+Accept-Language	zh-CN
+User-Agent	Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko
+Accept-Encoding	gzip, deflate
+Host	web.nciic.org.cn
+DNT	1
+Connection	Keep-Alive
+Cache-Control	no-cache
+Cookie	crmLoginCookie=1; loginStyle=BlueTemplate; loginID=zjhjzjdx52878; loginPW=N11111; loginIDtmp=zjhjzjdx52878; fAvfGpbE26=JMYWUT81NFmu; JSESSIONID=3j7CJJfBCGTQcqh1fwVSz3pJdsvt1FD4K22rbW8GrhRznspfvVCf!-134976322
+
+无正文
+
+
+请求头：
+
+请求	POST /nciic_self/serv/ServicesParseAction.do?method=getResDetails HTTP/1.1
+Accept	*/*
+Accept-Language	zh-cn
+Referer	https://web.nciic.org.cn/nciic_self/jsp/serv/services/services.jsp?servicesid=1191
+Accept-Encoding	gzip, deflate
+User-Agent	Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko
+Host	web.nciic.org.cn
+Content-Length	340
+DNT	1
+Connection	Keep-Alive
+Cache-Control	no-cache
+Cookie	crmLoginCookie=1; loginStyle=BlueTemplate; loginID=zjhjzjdx52878; loginPW=N11111; loginIDtmp=zjhjzjdx52878; fAvfGpbE26=UWYcu50gCj6S; JSESSIONID=10QBJJyYqnlYJwc91mfPsvQGbB1LRKDT0Ngws5fTTvLPh31JtmCv!-837127919
+
+响应头：
+
+响应	HTTP/1.1 200 OK
+Date	Thu, 29 Jan 2015 03:32:26 GMT
+Transfer-Encoding	chunked
+Content-Type	text/html; charset=UTF-8
+X-Powered-By	Servlet/2.5 JSP/2.1
+
