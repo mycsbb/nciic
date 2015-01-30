@@ -77,12 +77,9 @@
 							<TR>
 								<TD width="15%" height="25" class="label">相片</TD>
 								<TD height="25" style="font-family: 方正宋体-人口信息;" class="editLabel">
-<!-- 									<img width="100" height="140" -->
-<!-- 										src="/nciic_self/serv/ServicesPhotoAction.do?method=viewPhoto&amp;id=1209082457&amp;source=01&amp;lx=502" -->
-<!-- 										onload="finishPhotoLoading()"> -->
 									<img width="100" height="140"
 										src="/nciic_self/serv/ServicesPhotoAction.do?method=viewPhoto&amp;id=1209082457&amp;source=01&amp;lx=502"
-										onload="finishPhotoLoading()"/>
+										onload="finishPhotoLoading()">
 								</TD>
 							</TR>
 						</TABLE>
@@ -109,8 +106,7 @@
 					</TD>
 				</TR>
 				<INPUT type='hidden' name='printFlag' />
-<!-- 				<INPUT type='hidden' checkResult=1 /> -->
-				<INPUT type='hidden' checkResult="1" />
+				<INPUT type='hidden' checkResult=1 />
 			</TABLE>
 		</ROW>
 	</RESULT>
