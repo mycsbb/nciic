@@ -1,0 +1,179 @@
+<HTML XMLNS:ELEMENT>
+<?IMPORT NAMESPACE="ELEMENT" IMPLEMENTATION="/nciic_self/js/commonjs/newcontrol2.htc">
+<script language="javascript"
+	src="/nciic_self/js/commonjs/servicesdefault.js">
+	
+</script>
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html;charset=GBK">
+<LINK type="text/css" rel="stylesheet"
+	href="/nciic_self/css/blueTemplate/default.css">
+</LINK>
+<LINK type="text/css" rel="stylesheet"
+	href="/nciic_self/css/blueTemplate/xtree.css">
+</LINK>
+<script language="javascript"
+	src="/nciic_self/js/commonjs/TimePicker.js">
+	
+</script>
+<script language="javascript" src="/nciic_self/js/commonjs/common.js">
+	
+</script>
+<script language="javascript" src="/nciic_self/js/commonjs/default.js">
+	
+</script>
+<script language="javascript" src="/nciic_self/js/commonjs/xTabPage.js">
+	
+</script>
+<script language="javascript" src="/nciic_self/js/commonjs/xHint.js">
+	
+</script>
+<script language="javascript" src="/nciic_self/js/commonjs/xWin.js">
+	
+</script>
+<script language="javascript"
+	src="/nciic_self/js/commonjs/xScrollBar.js">
+	
+</script>
+<script language="javascript" src="/nciic_self/js/commonjs/xDic.js">
+	
+</script>
+<script language="javascript" src="/nciic_self/js/commonjs/more.js">
+	
+</script>
+<script language="javascript" src="/nciic_self/js/commonjs/xQuery.js">
+	
+</script>
+<script language="javascript" src="/nciic_self/js/commonjs/xPucker.js">
+	
+</script>
+<script language="JavaScript">
+	var winColor = "#7BA2E7";
+	var winTitleColor = "navy";
+	var winCaretColor = "FFCC33";
+	var iColor = "royalblue";
+	var g_sImgPath = "/nciic_self/images/default/"
+</SCRIPT>
+
+
+<style type="text/css">
+.tab-page1 {
+	clear: both;
+	border: 1px solid rgb(145, 155, 156);
+	background: rgb(252, 252, 254);
+	z-Index: 1;
+	position: relative;
+	top: -2px;
+	border-top-width: 0px;
+	font: 11px Tahoma;
+	color: Black;
+	/*
+    filter:             progid:DXImageTransform.Microsoft.Gradient(StartColorStr=#fffcfcfe, EndColorStr=#fff4f3ee, GradientType=0)
+                       progid:DXImageTransform.Microsoft.Shadow(Color=#ff919899, Strength=2, Direction=135);
+*/
+	padding: 4px 10px 30px 30px;
+	width: 100%;
+	height: expression(g_iHeight);
+	overflow: auto;
+}
+}
+</style>
+<SCRIPT language="JavaScript">
+	//action变量定义需要重新定义
+	var strAction = "/nciic_self/serv/ServicesParseAction.do";
+	var sendAction;
+	var sendobj;
+
+	//页面初始化
+	function doInit() {
+		//组装条件queryXML
+		var xml = "<ROWS><ROW><BA fwid=\"1192\"></BA><CNS><CN><BM>JCXX_CZRK</BM><L>and</L><FN>HH</FN><OPT>in</OPT><VAL>1219065223</VAL><FT>1</FT></CN></CNS></ROW></ROWS>";
+		document.frmPost.queryXML.value = xml;
+		//调用组合查询方法
+		document.frmPost.action = strAction
+				+ "?method=getRes&serviceid=1192&up_logID=2152054656";
+		//doGlobalQueryServices(document.frmPost.action,0,0,0,10);
+		doGlobalQueryRcnServices(document.frmPost.action, 0, 0, 10, 0, '',
+				tabList2);
+		//resetValueByPages([0]);
+	}
+	//行选中事件
+	function tr_click(obj) {
+		var pk = "";
+		var val = "";
+		var bm = "";
+		var id = "";
+		var sd = "";
+		var ft = "4";
+		var xmlDom = createDOMDocument();
+		xmlDom.loadXML(document.getElementById("resultXML").value);
+		var list = xmlDom.selectNodes("//RESPONSE/RESULT/RCN");
+		for ( var i = 0; i < list.length; i++) {
+			for ( var j = 0; j < list[i].childNodes.length; j++) {
+				if (list[i].childNodes[j].nodeName == "PK") {
+					pk = list[i].childNodes[j].text;
+				} else if (list[i].childNodes[j].nodeName == "BM") {
+					bm = list[i].childNodes[j].text;
+				} else if (list[i].childNodes[j].nodeName == "ID") {
+					id = list[i].childNodes[j].text;
+				} else if (list[i].childNodes[j].nodeName == "SD") {
+					sd = list[i].childNodes[j].text;
+				} else if (list[i].childNodes[j].nodeName == "FT") {
+					ft = list[i].childNodes[j].text;
+				}
+			}
+		}
+		xmlDom.loadXML(obj.rowxml);
+		var list = xmlDom.selectNodes("//ROW/VAL");
+		for ( var j = 0; j < list.length; j++) {
+			val = list[j].text;
+		}
+		if (pk != "" && val != "" && bm != "" && id != "")
+			parent.showRelationDetails(pk, val, bm, id, sd, ft);
+	}
+
+	function radio_click(obj) {
+		tr_click(obj);
+	}
+</SCRIPT>
+</head>
+<body leftmargin="10" topmargin="0">
+	<div id="processbar" class="loading" style="display: none"
+		align="center">正在处理请求，请稍候...</div>
+	<!--<div class="tab-pane" width="100%" id="tabPane" style="display:none" selectedIndex="0">
+    -->
+	<div class="tab-page1">
+		<span class="tab" style="display: none"></span>
+		<div class="tab-layout">
+			<ELEMENT:newcontrol style="" onproper="PreNextFlashRownumService()" />
+			<TABLE id="tabList2" class="TabList" cellPadding="0" cellSpacing="0"
+				frame="box" border="1" borderColorLight="silver"
+				borderColorDark="white" style="width: 98%;">
+				<tr class="TabListTitle" align="center">
+					<TH type="single"></TH>
+					<TH fieldname="GMSFHM" enableorder="1">公民身份号码</TH>
+					<TH fieldname="XM" enableorder="1">姓名</TH>
+					<TH fieldname="XB" enableorder="1">性别</TH>
+					<TH fieldname="MZ" enableorder="1">民族</TH>
+					<TH fieldname="CSRQ" enableorder="1">出生日期</TH>
+				</tr>
+			</TABLE>
+
+		</div>
+	</div>
+	<!--</div>
+-->
+	<div align="center">
+		<FORM name="frmPost" method="post" style="display: none"
+			target="_blank">
+			<!--系统保留定义区域-->
+			<input type="hidden" name="queryXML"> <input type="hidden"
+				name="txtXML"> <input type="hidden" name="txtFilter">
+			<input type="hidden" name="resultXML">
+			<!--传递行数据用的隐藏域-->
+			<input type="hidden" name="rowData">
+		</FORM>
+	</div>
+</body>
+</html>

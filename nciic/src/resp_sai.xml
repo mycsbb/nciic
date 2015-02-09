@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RESPONSE errorcode="0" code="0">
+	<RESULT currentpagenum="1" recordsperpage="20" countrows="2"
+		totalpage="1">
+		<DN fwid="1192" sd="2152439152">
+			<GMSFHM>公民身份号码</GMSFHM>
+			<XM>姓名</XM>
+			<XB>性别</XB>
+			<MZ>民族</MZ>
+			<CSRQ>出生日期</CSRQ>
+		</DN>
+		<ROW>
+			<VAL>590329263</VAL>
+			<GMSFHM>210804195507041022</GMSFHM>
+			<XM>张莉</XM>
+			<XB>女性</XB>
+			<MZ>汉族</MZ>
+			<CSRQ>1955-07-04</CSRQ>
+		</ROW>
+		<ROW>
+			<VAL>592139960</VAL>
+			<GMSFHM>21080419541008101X</GMSFHM>
+			<XM>高宝玉</XM>
+			<XB>男性</XB>
+			<MZ>满族</MZ>
+			<CSRQ>1954-10-08</CSRQ>
+		</ROW>
+		<RCN>
+			<PK>RKID</PK>
+			<BM>JCXX_CZRK</BM>
+			<ID>1193</ID>
+			<SD>2152439152</SD>
+		</RCN>
+	</RESULT>
+</RESPONSE>

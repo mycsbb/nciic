@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RESPONSE countrows="1">
+	<ROWS>
+		<ROW>
+			<Msg>查询结果记录数大于要求返回记录数10！</Msg>
+		</ROW>
+	</ROWS>
+</RESPONSE>

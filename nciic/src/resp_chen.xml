@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="GBK"?>
+<RESPONSE>
+	<ROWS />
+	<RESULT>
+		<ROW>
+			<TABLE width="98%">
+				<TR>
+					<TD>
+						<TABLE width="100%" cellpadding="2" cellspacing="1"
+							class="editTabTitle">
+							<TR>
+								<TD align="center" height="25" class="label">数据项</TD>
+								<TD align="center" height="25" class="label">输入信息</TD>
+							</TR>
+							<TR>
+								<TD width="15%" height="25" class="label">公民身份号码</TD>
+								<TD height="25" class="editLabel">350524198903275596</TD>
+							</TR>
+							<TR>
+								<TD width="15%" height="25" class="label">姓名</TD>
+								<TD height="25" class="editLabel">陈江</TD>
+							</TR>
+							<TR>
+								<TD width="15%" height="25" class="label">服务结果</TD>
+								<TD colspan="99" height="25" class="editLabel">没有符合条件的记录，请到户籍所在地进行核实</TD>
+							</TR>
+						</TABLE>
+					</TD>
+				</TR>
+				<INPUT type='hidden' name='printFlag' />
+				<INPUT type='hidden' checkResult='3' />
+			</TABLE>
+		</ROW>
+	</RESULT>
+</RESPONSE>

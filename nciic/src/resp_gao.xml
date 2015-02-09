@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="GBK"?>
+<RESPONSE>
+	<ROWS />
+	<RESULT>
+		<ROW>
+			<TABLE width="98%">
+				<TR>
+					<TD>
+						<TABLE width="100%" cellpadding="2" cellspacing="1"
+							class="editTabTitle">
+							<TR>
+								<TD align="center" height="25" class="label">数据项</TD>
+								<TD align="center" height="25" class="label">核查信息</TD>
+							</TR>
+							<TR>
+								<TD width="15%" height="25" class="label">公民身份号码</TD>
+								<TD height="25" style="font-family: 方正宋体-人口信息;" class="editLabel">21080419541008101X
+								</TD>
+							</TR>
+							<TR>
+								<TD width="15%" height="25" class="label">姓名</TD>
+								<TD height="25" style="font-family: 方正宋体-人口信息;" class="editLabel">高宝玉
+								</TD>
+							</TR>
+							<TR>
+								<TD width="15%" height="25" class="label">曾用名</TD>
+								<TD height="25" style="font-family: 方正宋体-人口信息;" class="editLabel">&amp;nbsp;
+								</TD>
+							</TR>
+							<TR>
+								<TD width="15%" height="25" class="label">性别</TD>
+								<TD height="25" style="font-family: 方正宋体-人口信息;" class="editLabel">男性</TD>
+							</TR>
+							<TR>
+								<TD width="15%" height="25" class="label">民族</TD>
+								<TD height="25" style="font-family: 方正宋体-人口信息;" class="editLabel">满族</TD>
+							</TR>
+							<TR>
+								<TD width="15%" height="25" class="label">出生日期</TD>
+								<TD height="25" style="font-family: 方正宋体-人口信息;" class="editLabel">1954-10-08
+								</TD>
+							</TR>
+							<TR>
+								<TD width="15%" height="25" class="label">数据归属单位代码</TD>
+								<TD height="25" style="font-family: 方正宋体-人口信息;" class="editLabel">辽宁营口市
+								</TD>
+							</TR>
+							<TR>
+								<TD width="15%" height="25" class="label">所属省市县（区）</TD>
+								<TD height="25" style="font-family: 方正宋体-人口信息;" class="editLabel">辽宁省营口市鲅鱼圈区
+								</TD>
+							</TR>
+							<TR>
+								<TD width="15%" height="25" class="label">籍贯省市县（区）</TD>
+								<TD height="25" style="font-family: 方正宋体-人口信息;" class="editLabel">辽宁省鞍山市台安县
+								</TD>
+							</TR>
+							<TR>
+								<TD width="15%" height="25" class="label">住址</TD>
+								<TD height="25" style="font-family: 方正宋体-人口信息;" class="editLabel">辽宁省营口市鲅鱼圈区新港街99号2-3-2
+								</TD>
+							</TR>
+							<TR>
+								<TD width="15%" height="25" class="label">服务处所</TD>
+								<TD height="25" style="font-family: 方正宋体-人口信息;" class="editLabel">营口港务局局机关
+								</TD>
+							</TR>
+							<TR>
+								<TD width="15%" height="25" class="label">婚姻状况</TD>
+								<TD height="25" style="font-family: 方正宋体-人口信息;" class="editLabel">已婚</TD>
+							</TR>
+							<TR>
+								<TD width="15%" height="25" class="label">文化程度</TD>
+								<TD height="25" style="font-family: 方正宋体-人口信息;" class="editLabel">大学本科（简称“大学”）
+								</TD>
+							</TR>
+							<TR>
+								<TD width="15%" height="25" class="label">相片</TD>
+								<TD height="25" style="font-family: 方正宋体-人口信息;" class="editLabel">
+									<img width="100" height="140"
+										src="/nciic_self/serv/ServicesPhotoAction.do?method=viewPhoto&amp;id=1209082457&amp;source=01&amp;lx=502"
+										onload="finishPhotoLoading()"/>
+								</TD>
+							</TR>
+						</TABLE>
+					</TD>
+				</TR>
+				<TR>
+					<TD>
+						<TABLE width="100%" cellpadding="2" cellspacing="1"
+							class="editTabTitle">
+							<TR>
+								<TD align="center" height="25" class="label">资源类型</TD>
+								<TD align="center" class="label">关联结果</TD>
+								<TD align="center" class="label">查看详细信息</TD>
+							</TR>
+							<TR>
+								<TD class="editLabel">同住址成员</TD>
+								<TD align="center" class="editLabel">&amp;nbsp;</TD>
+								<TD align="center" class="editLabel">
+									<font style="cursor:pointer" color="#0000FF"
+										onclick="showRelaFix('HH','1219065223','JCXX_CZRK','1192','2152054656');">查看</font>
+								</TD>
+							</TR>
+						</TABLE>
+					</TD>
+				</TR>
+				<INPUT type='hidden' name='printFlag' />
+				<INPUT type='hidden' checkResult='1'/>
+			</TABLE>
+		</ROW>
+	</RESULT>
+</RESPONSE>
