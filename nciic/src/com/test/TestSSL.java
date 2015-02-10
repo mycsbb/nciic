@@ -514,9 +514,9 @@ public class TestSSL {
 	}
 
 	public IdenDetailInfo xmlToIdenDetailInfo(String resp) {
-		System.out.println("###############doPersistence【开始】#############");
+		System.out.println("###############xmlToIdenDetailInfo【开始】#############");
 		if (resp == null || resp.trim().equals("")) {
-			System.out.println("【doPersistence】输入不给为空！");
+			System.out.println("【xmlToIdenDetailInfo】输入不给为空！");
 			return null;
 		}
 
@@ -614,7 +614,7 @@ public class TestSSL {
 			return null;
 		}
 
-		System.out.println("###############doPersistence【结束】#############");
+		System.out.println("###############xmlToIdenDetailInfo【结束】#############");
 		return detailInfo;
 	}
 
